@@ -17,18 +17,21 @@
 			HEIGHT = window.innerHeight;
 
 			scene = new THREE.Scene();
-			/*
-			scene.add(
-				new THREE.Mesh(
-					new THREE.SphereGeometry(90, 64, 64), 
-					new THREE.MeshBasicMaterial({
-						map: THREE.ImageUtils.loadTexture('assets/images/galaxy_starfield.png'),
-						minFilter: THREE.LinearFilter,
-						side: THREE.BackSide
-					})
-				)
-			);
-			*/
+
+			// create the geometry sphere
+			var starsGeometry = new THREE.SphereGeometry(90, 32, 32);
+			// create the material, using a texture of startfield
+			var starsMaterial = new THREE.MeshBasicMaterial();
+			starsMaterial.map = THREE.ImageUtils.loadTexture('assets/images/galaxy_starfield.png');
+			starsMaterial.map.minFilter = THREE.LinearFilter;
+			starsMaterial.map.wrapS = THREE.RepeatWrapping;
+			starsMaterial.map.wrapT = THREE.RepeatWrapping;
+			starsMaterial.map.repeat.set( 16, 8 );
+			starsMaterial.side = THREE.BackSide;
+			// create the mesh based on geometry and material
+			var stars = new THREE.Mesh(starsGeometry, starsMaterial);
+			scene.add(stars);
+
 			var earthGeometry = new THREE.SphereGeometry(0.5, 32, 32);
 			var earthMaterial = new THREE.MeshPhongMaterial();
 			earthMaterial.map = THREE.ImageUtils.loadTexture('assets/images/earthmap1k.jpg');
@@ -43,14 +46,12 @@
 			earth = new THREE.Mesh(earthGeometry, earthMaterial);
 			scene.add(earth);
 
-			var geometry   = new THREE.SphereGeometry(0.51, 32, 32);
+			var geometry   = new THREE.SphereGeometry(0.503, 32, 32);
 			var material  = new THREE.MeshPhongMaterial();
-			material.map = THREE.ImageUtils.loadTexture('assets/images/earthcloudmap.jpg');
+			material.map = THREE.ImageUtils.loadTexture('assets/images/earthcloudmap_modified.png');
 			material.map.minFilter = THREE.LinearFilter;
-			material.lightMap = THREE.ImageUtils.loadTexture('assets/images/earthcloudmaptrans.jpg');
-			material.lightMap.minFilter = THREE.LinearFilter;
 			material.side = THREE.FrontSide;
-			material.opacity = 0.5;
+			material.opacity = 0.9;
 			material.transparent = true;
 			material.depthWrite = false;
 			clouds = new THREE.Mesh(geometry, material);
@@ -75,12 +76,22 @@
 		    Sun.position.z = earth.position.z - 100;
 		    scene.add(Sun);
 
+		    window.addEventListener( 'resize', onWindowResize, false);
+
 		    // Contains the 1st POV, and all HUD elements.
 			var container = document.getElementById("mainview");
 			document.body.appendChild( container );
 			container.appendChild( renderer.domElement );
 
 		    render();
+		}
+		function onWindowResize()
+		{
+			WIDTH = window.innerWidth;
+			HEIGHT = window.innerHeight;
+			renderer.setSize( WIDTH, HEIGHT );
+			camera.aspect = WIDTH / HEIGHT;
+			camera.updateProjectionMatrix();
 		}
 		function render()
 		{
