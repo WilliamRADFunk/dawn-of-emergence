@@ -1,0 +1,19 @@
+body
+{
+	font-family: Arial;
+	margin: auto auto;
+	width: 97%;
+}
+#container
+{
+	margin: auto auto;
+	position: relative;
+	width: 97%;
+}
+#mainview
+{
+	height: 100%;
+	left: 0px;
+	position: absolute;
+	top: 0px;
+}
