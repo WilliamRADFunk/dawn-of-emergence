@@ -70,7 +70,7 @@
 
 			scene.add(new THREE.AmbientLight(0x333333));
 			// Main lightsource -- shadows eliminated
-		    var Sun = new THREE.DirectionalLight( 0xFFFFFF, 0.9 );
+		    var Sun = new THREE.DirectionalLight( 0xCCCCCC, 1 );
 		    Sun.position.x = earth.position.x - 80;
 		    Sun.position.y = earth.position.y + 70;
 		    Sun.position.z = earth.position.z - 100;
@@ -96,7 +96,7 @@
 		function render()
 		{
 			earth.rotation.y += 0.0005;
-			clouds.rotation.y += 0.001;
+			clouds.rotation.y += 0.0005;
 			requestAnimationFrame( render );
 			renderer.render( scene, camera );
 		}
@@ -118,3 +118,12 @@
 </body>
 
 </html>
+
+<!--
+	* Planetoids, stary backdrop, and cloud-cover came from http://planetpixelemporium.com/earth.html
+	  with a copyright license that allowed:
+
+	  	"Example 1 - The Simulator or Game
+		You are a software author who has created a Solar System simulator and you want to use my planet texture maps in your program. Since the primary intent of your use is to create real time renderings utilizing the planet texture maps as a resource in your software product, this is an acceptable use under my copyright terms."
+
+-->
