@@ -54,11 +54,28 @@
 			cloudsMaterial.depthWrite = false;
 			clouds = new THREE.Mesh(cloudsGeometry, cloudsMaterial);
 			earth.add(clouds);
+			// Moon's orbital mechanics
+			moonOrbit = new THREE.Object3D();
+			scene.add( moonOrbit );
+			var moonOrbitalPivot = new THREE.Object3D();
+			moonOrbitalPivot.rotation.y = 0;
+			moonOrbit.add( moonOrbitalPivot );
+			// Moon mesh
+			var moonGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+			var moonMaterial = new THREE.MeshPhongMaterial();
+			moonMaterial.map = THREE.ImageUtils.loadTexture('assets/images/moonmap1k.jpg');
+			moonMaterial.map.minFilter = THREE.LinearFilter;
+			moonMaterial.bumpMap = THREE.ImageUtils.loadTexture('assets/images/moonbump1k.jpg');
+			moonMaterial.bumpMap.minFilter = THREE.LinearFilter;
+			moonMaterial.bumpScale = 0.02;
+			var moon = new THREE.Mesh( moonGeometry, moonMaterial );
+			moon.position.z = 30;
+			moonOrbitalPivot.add( moon );
 			// The satellite's viewpoint.
 			camera = new THREE.PerspectiveCamera( 45, WIDTH / HEIGHT, 0.01, 1000 );
 			camera.position.x = earth.position.x;
 			camera.position.y = earth.position.y + 0.7;
-			camera.position.z = earth.position.z - 2;
+			camera.position.z = earth.position.z - 3;
 			camera.lookAt( earth.position );
 			// Three.js renderer.
 			renderer = new THREE.WebGLRenderer();
@@ -72,6 +89,12 @@
 		    Sun.position.y = earth.position.y + 70;
 		    Sun.position.z = earth.position.z - 100;
 		    scene.add(Sun);
+
+		    var beacon = new THREE.PointLight( 0xFF0000, 1, 1, 1 );
+		    beacon.position.x = earth.position.x;
+			beacon.position.y = earth.position.y + 0.7;
+			beacon.position.z = earth.position.z - 2;
+			scene.add(beacon);
 		    // Resizes Three.js, HTML, and CSS elements with a change in window size.
 		    window.addEventListener( 'resize', onWindowResize, false);
 		    // Contains the 1st POV, and all HUD elements.
@@ -93,6 +116,7 @@
 		// The update loop.
 		function render()
 		{
+			moonOrbit.rotation.y += 0.0002;
 			earth.rotation.y += 0.0005;
 			clouds.rotation.y += 0.0005;
 			requestAnimationFrame( render );
