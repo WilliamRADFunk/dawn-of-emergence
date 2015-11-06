@@ -9,14 +9,36 @@
 	<script src="js/external/three.js"></script>
 	<!-- Allows for keyboard listeners -->
 	<script src="js/external/threex.keyboardstate.js"></script>
+	<script id="worker" type="javascript/worker">
+		self.onmessage = function(e) 
+		{
+			if( e.data.type == 'load-music' )
+			{
+				self.postMessage({'type':'Web worker says, "Music load is complete."'});
+			}
+		}
+	</script>
 	<script>
 		var camera, scene, renderer, WIDTH, HEIGHT, earth, clouds;
 		function init()
 		{
+			var blob = new Blob([document.getElementById('worker').textContent]); 
+			var worker = new Worker( window.URL.createObjectURL( blob ) );
+
 			WIDTH = window.innerWidth;
 			HEIGHT = window.innerHeight;
 
 			scene = new THREE.Scene();
+
+			var backgroundMusic = new Audio("assets/audio/mahler_05.mp3");
+			backgroundMusic.autoplay = true;
+			backgroundMusic.loop = true;
+			worker.postMessage({'type':'load-music'});
+
+			worker.onmessage = function(e) 
+			{
+				console.log(e.data.type);
+			}
 
 			// The Universe in all its stary awesomeness.
 			var starsGeometry = new THREE.SphereGeometry(90, 32, 32);
