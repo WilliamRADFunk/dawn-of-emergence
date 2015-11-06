@@ -4,6 +4,18 @@ body
 	margin: auto auto;
 	width: 97%;
 }
+#btn-settings
+{
+	height: 75% !important;
+	background-color: transparent;
+	background-image: url("../assets/image/gear_unclicked.png");
+	background-repeat: none;
+	background-size: 75% 75%;
+	border: none;
+	display: block;
+	margin: auto auto;
+	width: 75% !important;
+}
 #container
 {
 	margin: auto auto;
@@ -16,4 +28,73 @@ body
 	left: 0px;
 	position: absolute;
 	top: 0px;
+}
+#top-left,
+#top-center,
+#top-right,
+#middle-left,
+#middle-right,
+#bottom-left,
+#bottom-center,
+#bottom-right
+{
+	background-image: url("../assets/image/metallic_1.png");
+	display: block;
+	position: absolute;
+}
+#top-left
+{
+	height: 10%;
+	left: 0%;
+	top: 0%;
+	width: 10%;
+}
+#top-center
+{
+	height: 10%;
+	left: 10%;
+	top: 0%;
+	width: 80%;
+}
+#top-right
+{
+	height: 10%;
+	left: 90%;
+	top: 0%;
+	width: 10%;
+}
+#middle-left
+{
+	height: 80%;
+	left: 0%;
+	top: 10%;
+	width: 10%;
+}
+#middle-right
+{
+	height: 80%;
+	left: 90%;
+	top: 10%;
+	width: 10%;
+}
+#bottom-left
+{
+	height: 10%;
+	left: 0%;
+	top: 90%;
+	width: 10%;
+}
+#bottom-center
+{
+	height: 10%;
+	left: 10%;
+	top: 90%;
+	width: 80%;
+}
+#bottom-right
+{
+	height: 10%;
+	left: 90%;
+	top: 90%;
+	width: 10%;
 }
