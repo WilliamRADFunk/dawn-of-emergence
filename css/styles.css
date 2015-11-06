@@ -6,28 +6,38 @@ body
 }
 #btn-settings
 {
-	height: 75% !important;
+	height: 70% !important;
 	background-color: transparent;
-	background-image: url("../assets/image/gear_unclicked.png");
-	background-repeat: none;
-	background-size: 75% 75%;
+	background: url("../assets/image/gear_unclicked.png") no-repeat;
+	background-size: 100% 100%;
 	border: none;
 	display: block;
-	margin: auto auto;
-	width: 75% !important;
+	margin: 10% auto 0% auto;
+	width: 70% !important;
 }
-#container
+#btn-settings:active
 {
-	margin: auto auto;
-	position: relative;
-	width: 97%;
+	height: 70% !important;
+	background-color: transparent;
+	background: url("../assets/image/gear_clicked.png") no-repeat;
+	background-size: 100% 100%;
+	border: none;
+	display: block;
+	margin: 10% auto 0% auto;
+	width: 70% !important;
+}
+#btn-settings:focus
+{
+	outline: 0;
 }
 #mainview
 {
-	height: 100%;
-	left: 0px;
+	display: block;
 	position: absolute;
-	top: 0px;
+	height: 80%;
+	left: 10%;
+	top: 10%;
+	width: 80%;
 }
 #top-left,
 #top-center,
@@ -44,57 +54,65 @@ body
 }
 #top-left
 {
-	height: 10%;
+	border-radius: 0% 0% 15% 0%;
+	height: 15%;
 	left: 0%;
 	top: 0%;
-	width: 10%;
+	width: 15%;
+	z-index: 1000;
 }
 #top-center
 {
 	height: 10%;
-	left: 10%;
+	left: 15%;
 	top: 0%;
-	width: 80%;
+	width: 70%;
 }
 #top-right
 {
-	height: 10%;
-	left: 90%;
+	border-radius: 0% 0% 0% 15%;
+	height: 15%;
+	left: 85%;
 	top: 0%;
-	width: 10%;
+	width: 15%;
+	z-index: 1000;
 }
 #middle-left
 {
-	height: 80%;
+	height: 70%;
 	left: 0%;
-	top: 10%;
+	top: 15%;
 	width: 10%;
 }
 #middle-right
 {
-	height: 80%;
+	height: 70%;
 	left: 90%;
-	top: 10%;
+	top: 15%;
 	width: 10%;
 }
 #bottom-left
 {
-	height: 10%;
+	border-radius: 0% 15% 0% 0%;
+	height: 15%;
 	left: 0%;
-	top: 90%;
-	width: 10%;
+	top: 85%;
+	width: 15%;
+	z-index: 1000;
 }
 #bottom-center
 {
 	height: 10%;
-	left: 10%;
+	left: 15%;
 	top: 90%;
-	width: 80%;
+	width: 70%;
 }
 #bottom-right
 {
-	height: 10%;
-	left: 90%;
-	top: 90%;
-	width: 10%;
+	border-radius: 15% 0% 0% 0%;
+	height: 15%;
+	left: 85%;
+	top: 85%;
+	width: 15%;
+	z-index: 1000;
 }

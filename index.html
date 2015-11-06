@@ -26,8 +26,8 @@
 			var blob = new Blob([document.getElementById('worker').textContent]); 
 			var worker = new Worker( window.URL.createObjectURL( blob ) );
 
-			WIDTH = window.innerWidth;
-			HEIGHT = window.innerHeight;
+			WIDTH = window.innerWidth * 0.8;
+			HEIGHT = window.innerHeight * 0.8;
 
 			scene = new THREE.Scene();
 
@@ -107,7 +107,7 @@
 			renderer.autoClear = false;
 			// Two lightsources: one as an every glow, and the other simulating the sun's brightness. 
 			scene.add(new THREE.AmbientLight(0x333333));
-		    var Sun = new THREE.DirectionalLight( 0x777777, 1 );
+		    var Sun = new THREE.DirectionalLight( 0x999999, 1 );
 		    Sun.position.x = earth.position.x - 80;
 		    Sun.position.y = earth.position.y + 70;
 		    Sun.position.z = earth.position.z - 100;
@@ -116,6 +116,7 @@
 			var satellites = new THREE.Object3D();
 			var satelliteGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
 			var satelliteMaterial = new THREE.MeshPhongMaterial({color: 0x333333});
+
 			var satellite01 = new THREE.Mesh( satelliteGeometry, satelliteMaterial );
 			satellite01.position.x = earth.position.x - 1.3;
 			satellite01.position.y = earth.position.y;
@@ -140,11 +141,15 @@
 		// Resizes Three.js, HTML, and CSS elements with a change in window size.
 		function onWindowResize()
 		{
-			WIDTH = window.innerWidth;
-			HEIGHT = window.innerHeight;
+			WIDTH = window.innerWidth * 0.8;
+			HEIGHT = window.innerHeight * 0.8;
 			renderer.setSize( WIDTH, HEIGHT );
 			camera.aspect = WIDTH / HEIGHT;
 			camera.updateProjectionMatrix();
+		}
+		function openSettings()
+		{
+			console.log("click");
 		}
 		// The update loop.
 		function render()
@@ -158,7 +163,7 @@
 				}
 				else
 				{
-					beacon.intensity = 1;
+					beacon.intensity = 2;
 				}
 			}
 			moonOrbit.rotation.y += 0.0002;
@@ -172,19 +177,16 @@
 
 <body>
 
-<div id="container">
-	<div id="mainview">
-		<div id="top-left"></div>
-		<div id="top-center"></div>
-		<div id="top-right"></div>
-		<div id="middle-left"></div>
-		<div id="middle-right"></div>
-		<div id="bottom-left"></div>
-		<div id="bottom-center"></div>
-		<div id="bottom-right">
-			<button id="btn-settings"></button>
-		</div>
-	</div>
+<div id="mainview"></div>
+<div id="top-left"></div>
+<div id="top-center"></div>
+<div id="top-right"></div>
+<div id="middle-left"></div>
+<div id="middle-right"></div>
+<div id="bottom-left"></div>
+<div id="bottom-center"></div>
+<div id="bottom-right">
+	<button id="btn-settings" onclick="openSettings()"></button>
 </div>
 
 <script>window.onload = init;</script>
