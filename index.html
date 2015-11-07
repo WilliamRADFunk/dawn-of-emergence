@@ -20,8 +20,8 @@
 	</script>
 	<script>
 		var camera, scene, renderer, WIDTH, HEIGHT, views, cameraCurView = 0;
-		var earth, clouds, beacon01, beacon02, keyboard, updateCounter = 0;
-		var satellites;
+		var earth, clouds, beacon01, beacon02, beaconPlayer01, beaconPlayer02;
+		var satellites, satellitePlayer, keyboard, updateCounter = 0;
 
 		keyboard = new THREEx.KeyboardState();
 
@@ -33,7 +33,7 @@
 					bottom: 0,
 					width: 0.5,
 					height: 1.0,
-					eye: [0, 0.7, -2.5],
+					eye: [0, 0.7, -2.35],
 					up: [0, 1, 0],
 					fov: 45,
 					updateCamera: function ()
@@ -92,6 +92,20 @@
 					updateCamera: function ()
 					{
 						camera.lookAt(earth.position);
+					}
+				},
+				{
+					// The satellite's viewpoint.
+					left: 0,
+					bottom: 0,
+					width: 0.5,
+					height: 1.0,
+					eye: [0, 0.7, -2.0],
+					up: [0, 1, 0],
+					fov: 45,
+					updateCamera: function ()
+					{
+						camera.lookAt(new THREE.Vector3(0, 0.7, -2.5));
 					}
 				}
 			];
@@ -188,14 +202,16 @@
 		    //Satellite bodies			
 			satellites = new THREE.Object3D();
 			var satelliteBodyGeometry = new THREE.BoxGeometry(0.05, 0.05, 0.05);
-			var satelliteBodyMaterial = new THREE.MeshPhongMaterial({color: 0xFFD700});
+			var satelliteBodyMaterial = new THREE.MeshPhongMaterial();
 			var satellitePanelGeometry = new THREE.BoxGeometry(0.005, 0.025, 0.25);
-			var satellitePanelMaterial = new THREE.MeshPhongMaterial({color: 0x0EBFE9});
-			var satelliteLensGeometry = new THREE.BoxGeometry(0.02, 0.02, 0.02);
-			var satelliteLensMaterial = new THREE.MeshPhongMaterial({color: 0xCCCCCC});
+			var satellitePanelMaterial = new THREE.MeshPhongMaterial();
+			satellitePanelMaterial.map = THREE.ImageUtils.loadTexture('assets/images/panel_1.jpg');
+			var satelliteFrontGeometry = new THREE.BoxGeometry(0.02, 0.02, 0.02);
+			var satelliteFrontMaterial = new THREE.MeshPhongMaterial({color: 0xCCCCCC});
 			var satellite01 = new THREE.Object3D();
 			var satellite02 = new THREE.Object3D();
 			//Main body of the satellite
+			satelliteBodyMaterial.map = THREE.ImageUtils.loadTexture('assets/images/satellite_1.png');
 			var satelliteBody01 = new THREE.Mesh( satelliteBodyGeometry, satelliteBodyMaterial );
 			satelliteBody01.position.x = earth.position.x - 1.3;
 			satelliteBody01.position.y = earth.position.y;
@@ -208,11 +224,11 @@
 			satellitePanel01.position.z = earth.position.z;
 			satellite01.add(satellitePanel01);
 			//Satellite lens
-			var satelliteLens01 = new THREE.Mesh( satelliteLensGeometry, satelliteLensMaterial );
-			satelliteLens01.position.x = earth.position.x - 1.27;
-			satelliteLens01.position.y = earth.position.y;
-			satelliteLens01.position.z = earth.position.z;
-			satellite01.add(satelliteLens01);
+			var satelliteFront01 = new THREE.Mesh( satelliteFrontGeometry, satelliteFrontMaterial );
+			satelliteFront01.position.x = earth.position.x - 1.27;
+			satelliteFront01.position.y = earth.position.y;
+			satelliteFront01.position.z = earth.position.z;
+			satellite01.add(satelliteFront01);
 			//Satellite red lights
 			beacon01 = new THREE.SpotLight( 0xFF0000 );
 		    beacon01.position.x = earth.position.x - 1.15;
@@ -225,7 +241,7 @@
 			satelliteBody02.position.x = earth.position.x + 1.6;
 			satelliteBody02.position.y = earth.position.y;
 			satelliteBody02.position.z = earth.position.z + 1;
-			satelliteBody02.material.color.setHex(0xAAAAAA);
+			satelliteBody02.material.map = THREE.ImageUtils.loadTexture('assets/images/satellite_2.png');
 			satellite02.add(satelliteBody02);
 			//Satellite panels
 			var satellitePanel02 = new THREE.Mesh( satellitePanelGeometry, satellitePanelMaterial.clone() );
@@ -235,12 +251,12 @@
 			satellitePanel02.rotation.x += 0.5;
 			satellite02.add(satellitePanel02);
 			//Satellite lens
-			var satelliteLens02 = new THREE.Mesh( satelliteLensGeometry, satelliteLensMaterial.clone() );
-			satelliteLens02.position.x = earth.position.x + 1.57;
-			satelliteLens02.position.y = earth.position.y;
-			satelliteLens02.position.z = earth.position.z + 1;
-			satelliteLens02.material.color.setHex(0xFFD700);
-			satellite02.add(satelliteLens02);
+			var satelliteFront02 = new THREE.Mesh( satelliteFrontGeometry, satelliteFrontMaterial.clone() );
+			satelliteFront02.position.x = earth.position.x + 1.57;
+			satelliteFront02.position.y = earth.position.y;
+			satelliteFront02.position.z = earth.position.z + 1;
+			satelliteFront02.material.color.setHex(0xFFD700);
+			satellite02.add(satelliteFront02);
 			//Satellite red lights
 			beacon02 = new THREE.SpotLight( 0x00FF00 );
 		    beacon02.position.x = earth.position.x + 1.14;
@@ -252,6 +268,64 @@
 			satellites.add( satellite01 );
 			satellites.add( satellite02 );
 			scene.add(satellites);
+			/**********************************************************************************************/
+			satellitePlayer = new THREE.Object3D();
+			//Main body of the satellite
+			var satelliteBodyPlayer = new THREE.Mesh( satelliteBodyGeometry, satelliteBodyMaterial.clone() );
+			satelliteBodyPlayer.position.x = earth.position.x;
+			satelliteBodyPlayer.position.y = earth.position.y + 0.7;
+			satelliteBodyPlayer.position.z = earth.position.z - 2.5;
+			satelliteBodyPlayer.material.map = THREE.ImageUtils.loadTexture('assets/images/satellite_3.png');
+			satellitePlayer.add(satelliteBodyPlayer);
+			//Satellite panels
+			var satellitePanelPlayer = new THREE.Mesh( satellitePanelGeometry, satellitePanelMaterial );
+			satellitePanelPlayer.position.x = earth.position.x;
+			satellitePanelPlayer.position.y = earth.position.y + 0.7;
+			satellitePanelPlayer.position.z = earth.position.z - 2.5;
+			satellitePanelPlayer.rotation.y = Math.PI / 2;
+			satellitePlayer.add(satellitePanelPlayer);
+			//Satellite front
+			var satelliteFrontPlayer = new THREE.Mesh( satelliteFrontGeometry, satelliteFrontMaterial );
+			satelliteFrontPlayer.position.x = earth.position.x;
+			satelliteFrontPlayer.position.y = earth.position.y + 0.7;
+			satelliteFrontPlayer.position.z = earth.position.z - 2.4;
+			satellitePlayer.add(satelliteFrontPlayer);
+			//Satellite lens
+			var satelliteLensPlayer = new THREE.Mesh(new THREE.CylinderGeometry(0.005, 0.005, 0.025), new THREE.MeshPhongMaterial());
+			satelliteLensPlayer.material.color.setHex(0x000000);
+			satelliteLensPlayer.position.x = earth.position.x;
+			satelliteLensPlayer.position.y = earth.position.y + 0.7;
+			satelliteLensPlayer.position.z = earth.position.z - 2.4;
+			satelliteLensPlayer.rotation.x = Math.PI / 2;
+			satellitePlayer.add(satelliteLensPlayer);
+			//Satellite red lights
+			var lightSphereRed = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), new THREE.MeshBasicMaterial());
+			lightSphereRed.material.color.setHex(0xFF0000);
+			lightSphereRed.position.x = earth.position.x - 0.02;
+			lightSphereRed.position.y = earth.position.y + 0.72;
+			lightSphereRed.position.z = earth.position.z - 2.375;
+			beaconPlayer01 = new THREE.SpotLight( 0xFF0000 );
+		    beaconPlayer01.position.x = earth.position.x - 0.019;
+			beaconPlayer01.position.y = earth.position.y + 0.719;
+			beaconPlayer01.position.z = earth.position.z - 2.376;
+			beaconPlayer01.target = satelliteBodyPlayer;
+			satellitePlayer.add(beaconPlayer01);
+			satellitePlayer.add(lightSphereRed);
+			//Satellite green lights
+			var lightSphereGreen = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), new THREE.MeshBasicMaterial());
+			lightSphereGreen.material.color.setHex(0x00FF00);
+			lightSphereGreen.position.x = earth.position.x + 0.02;
+			lightSphereGreen.position.y = earth.position.y + 0.68;
+			lightSphereGreen.position.z = earth.position.z - 2.375;
+			beaconPlayer02 = new THREE.SpotLight( 0x00FF00 );
+		    beaconPlayer02.position.x = earth.position.x + 0.019;
+			beaconPlayer02.position.y = earth.position.y + 0.681;
+			beaconPlayer02.position.z = earth.position.z - 2.376;
+			beaconPlayer02.target = satelliteBodyPlayer;
+			satellitePlayer.add(beaconPlayer02);
+			satellitePlayer.add(lightSphereGreen);
+			//Add player satellite to scene.
+			scene.add(satellitePlayer);
 			/**********************************************************************************************/
 		    // Resizes Three.js, HTML, and CSS elements with a change in window size.
 		    window.addEventListener( 'resize', onWindowResize, false);
@@ -304,7 +378,7 @@
 		function openCameras()
 		{
 			cameraCurView++;
-			if(cameraCurView >= 5)
+			if(cameraCurView >= views.length)
 			{
 				cameraCurView = 0;
 			}
@@ -319,11 +393,19 @@
 				{
 					beacon01.intensity = 0;
 					beacon02.intensity = 0.5;
+					beaconPlayer01.intensity = 0;
+					satellitePlayer.children[5].material.visible = false;
+					beaconPlayer02.intensity = 0.5;
+					satellitePlayer.children[7].material.visible = true;
 				}
 				else
 				{
 					beacon01.intensity = 2;
 					beacon02.intensity = 0;
+					beaconPlayer01.intensity = 0.5;
+					satellitePlayer.children[5].material.visible = true;
+					beaconPlayer02.intensity = 0;
+					satellitePlayer.children[7].material.visible = false;
 				}
 			}
 			moonOrbit.rotation.y += 0.0002;
