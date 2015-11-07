@@ -152,7 +152,8 @@ body
 {
 	background-color: #000000;
 	background-size: 100% 100%;
-	color: #00FF00;
+	border-radius: 10px;
+	color: #49E20E;
 	height: 85%;
 	left: 10%;
 	padding-left: 2px;
