@@ -286,7 +286,7 @@ function createAxes()
 	scene.add( axisOrbit );
 	var axisPivot = new THREE.Object3D();
 	axisOrbit.add( axisPivot );
-	var axes = buildAxes( 1000 );
+	var axes = buildAxes( 1 );
 	axisPivot.add(axes);
 }
 function buildAxis( src, dst, colorHex, dashed )
@@ -295,7 +295,7 @@ function buildAxis( src, dst, colorHex, dashed )
 	var mat; 
 	if(dashed)
 	{
-		mat = new THREE.LineDashedMaterial({ linewidth: 3, color: colorHex, dashSize: 3, gapSize: 3 });
+		mat = new THREE.LineDashedMaterial({ linewidth: 3, color: colorHex, dashSize: 3, gapSize: 0.1 });
 	}
 	else
 	{
