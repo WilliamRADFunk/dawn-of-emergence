@@ -19,8 +19,39 @@
 		}
 	</script>
 	<script>
-		var camera, scene, renderer, WIDTH, HEIGHT;
+		var camera, scene, renderer, WIDTH, HEIGHT, views;
 		var earth, clouds, beacon, updateCounter = 0;
+
+		// All of the camera views
+			views = [
+				{
+					// The satellite's viewpoint.
+					left: 0,
+					bottom: 0,
+					width: 0.5,
+					height: 1.0,
+					eye: [0, 0.7, -2.5],
+					up: [0, 1, 0],
+					fov: 45,
+					updateCamera: function ()
+					{
+						camera.lookAt(earth.position);
+					}
+				},
+				{
+					left: 0,
+					bottom: 0,
+					width: 0.5,
+					height: 1.0,
+					eye: [0, 0, -1],
+					up: [0, 1, 0],
+					fov: 45,
+					updateCamera: function ()
+					{
+						camera.lookAt(0, 0.7, -2.5);
+					}
+				}
+			];
 		function init()
 		{
 			var blob = new Blob([document.getElementById('worker').textContent]); 
@@ -94,12 +125,6 @@
 			var moon = new THREE.Mesh( moonGeometry, moonMaterial );
 			moon.position.z = 30;
 			moonOrbitalPivot.add( moon );
-			// The satellite's viewpoint.
-			camera = new THREE.PerspectiveCamera( 45, WIDTH / HEIGHT, 0.01, 1000 );
-			camera.position.x = earth.position.x;
-			camera.position.y = earth.position.y + 0.7;
-			camera.position.z = earth.position.z - 3;
-			camera.lookAt( earth.position );
 			// Three.js renderer.
 			renderer = new THREE.WebGLRenderer();
 			renderer.setClearColor( 0x000000, 0 );
@@ -135,6 +160,19 @@
 			var container = document.getElementById("mainview");
 			document.body.appendChild( container );
 			container.appendChild( renderer.domElement );
+			// The satellite's viewpoints.
+			for(var viewNum = 0; viewNum < views.length; viewNum++)
+			{
+				var view = views[viewNum];
+				camera = new THREE.PerspectiveCamera( views.fov, WIDTH / HEIGHT, 0.01, 1000 );
+				camera.position.x = view.eye[0];
+				camera.position.y = view.eye[1];
+				camera.position.z = view.eye[2];
+				camera.up.x = view.up[0];
+				camera.up.y = view.up[1];
+				camera.up.z = view.up[2];
+				view.camera = camera;
+			}
 			// Activates the update loop.
 		    render();
 		}
@@ -169,8 +207,25 @@
 			moonOrbit.rotation.y += 0.0002;
 			earth.rotation.y += 0.0005;
 			clouds.rotation.y += 0.0005;
+
 			requestAnimationFrame( render );
-			renderer.render( scene, camera );
+
+			for(var viewNum = 0; viewNum < views.length; viewNum++)
+			{
+				var view = views[viewNum];
+				camera = view.camera;
+
+				view.updateCamera();
+
+				renderer.setViewport(0, 0, WIDTH, HEIGHT);
+				renderer.setScissor(0, 0, WIDTH, HEIGHT);
+				renderer.enableScissorTest(true);
+
+				camera.aspect = WIDTH / HEIGHT;
+				camera.updateProjectionMatrix();
+
+				renderer.render( scene, camera );
+			}
 		}
 	</script>
 </head>
