@@ -130,6 +130,7 @@ body
 #bottom-center button
 {
 	float: left;
+	font-size: 10px;
 	min-width: 40px;
 	min-height: 40px;
 	width: 10%;
@@ -146,4 +147,27 @@ body
 	top: 85%;
 	width: 15%;
 	z-index: 1000;
+}
+#stat-screen
+{
+	background-color: #000000;
+	background-size: 100% 100%;
+	color: #00FF00;
+	height: 85%;
+	left: 10%;
+	padding-left: 2px;
+	padding-top: 10px;
+	position: absolute;
+	top: 6%;
+	width: 80%;
+}
+#stat-screen h2
+{
+	font-size: 12px;
+}
+#stat-screen p
+{
+	font-size: 10px;
+	margin: 5px 0px 10px 0px;
+	text-align: center;
 }
