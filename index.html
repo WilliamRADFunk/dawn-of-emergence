@@ -19,8 +19,11 @@
 		}
 	</script>
 	<script>
-		var camera, scene, renderer, WIDTH, HEIGHT, views;
-		var earth, clouds, beacon, updateCounter = 0;
+		var camera, scene, renderer, WIDTH, HEIGHT, views, cameraCurView = 0;
+		var earth, clouds, beacon01, beacon02, keyboard, updateCounter = 0;
+		var satellites;
+
+		keyboard = new THREEx.KeyboardState();
 
 		// All of the camera views
 			views = [
@@ -43,12 +46,52 @@
 					bottom: 0,
 					width: 0.5,
 					height: 1.0,
-					eye: [0, 0, -1],
+					eye: [0, 0, -0.9],
 					up: [0, 1, 0],
 					fov: 45,
 					updateCamera: function ()
 					{
-						camera.lookAt(0, 0.7, -2.5);
+						camera.lookAt(earth.position);
+					}
+				},
+				{
+					left: 0,
+					bottom: 0,
+					width: 0.5,
+					height: 1.0,
+					eye: [0, 0.8, -0.3],
+					up: [0, 1, 0],
+					fov: 45,
+					updateCamera: function ()
+					{
+						camera.lookAt(earth.position);
+					}
+				},
+				{
+					left: 0,
+					bottom: 0,
+					width: 0.5,
+					height: 1.0,
+					eye: [0, -0.5, -0.8],
+					up: [0, 1, 0],
+					fov: 45,
+					updateCamera: function ()
+					{
+						camera.lookAt(earth.position);
+					}
+				},
+				{
+					// The satellite's viewpoint.
+					left: 0,
+					bottom: 0,
+					width: 0.5,
+					height: 1.0,
+					eye: [0, 0.7, -12.5],
+					up: [0, 1, 0],
+					fov: 45,
+					updateCamera: function ()
+					{
+						camera.lookAt(earth.position);
 					}
 				}
 			];
@@ -61,7 +104,7 @@
 			HEIGHT = window.innerHeight * 0.8;
 
 			scene = new THREE.Scene();
-
+			/**********************************************************************************************/
 			var backgroundMusic = new Audio("assets/audio/mahler_05.mp3");
 			backgroundMusic.autoplay = true;
 			backgroundMusic.loop = true;
@@ -71,7 +114,7 @@
 			{
 				console.log(e.data.type);
 			}
-
+			/**********************************************************************************************/
 			// The Universe in all its stary awesomeness.
 			var starsGeometry = new THREE.SphereGeometry(90, 32, 32);
 			var starsMaterial = new THREE.MeshBasicMaterial();
@@ -83,6 +126,7 @@
 			starsMaterial.side = THREE.BackSide;
 			var stars = new THREE.Mesh(starsGeometry, starsMaterial);
 			scene.add(stars);
+			/**********************************************************************************************/
 			// The Earth: its water, landmasses, and textured elevations.
 			var earthGeometry = new THREE.SphereGeometry(0.5, 32, 32);
 			var earthMaterial = new THREE.MeshPhongMaterial();
@@ -108,6 +152,7 @@
 			cloudsMaterial.depthWrite = false;
 			clouds = new THREE.Mesh(cloudsGeometry, cloudsMaterial);
 			earth.add(clouds);
+			/**********************************************************************************************/
 			// Moon's orbital mechanics
 			moonOrbit = new THREE.Object3D();
 			scene.add( moonOrbit );
@@ -125,11 +170,13 @@
 			var moon = new THREE.Mesh( moonGeometry, moonMaterial );
 			moon.position.z = 30;
 			moonOrbitalPivot.add( moon );
+			/**********************************************************************************************/
 			// Three.js renderer.
 			renderer = new THREE.WebGLRenderer();
 			renderer.setClearColor( 0x000000, 0 );
 			renderer.setSize( WIDTH, HEIGHT );
 			renderer.autoClear = false;
+			/**********************************************************************************************/
 			// Two lightsources: one as an every glow, and the other simulating the sun's brightness. 
 			scene.add(new THREE.AmbientLight(0x333333));
 		    var Sun = new THREE.DirectionalLight( 0x999999, 1 );
@@ -137,23 +184,75 @@
 		    Sun.position.y = earth.position.y + 70;
 		    Sun.position.z = earth.position.z - 100;
 		    scene.add(Sun);
+		    /**********************************************************************************************/
 		    //Satellite bodies			
-			var satellites = new THREE.Object3D();
-			var satelliteGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-			var satelliteMaterial = new THREE.MeshPhongMaterial({color: 0x333333});
-
-			var satellite01 = new THREE.Mesh( satelliteGeometry, satelliteMaterial );
-			satellite01.position.x = earth.position.x - 1.3;
-			satellite01.position.y = earth.position.y;
-			satellite01.position.z = earth.position.z;
-			beacon = new THREE.SpotLight( 0xFF0000 );
-		    beacon.position.x = earth.position.x - 1.15;
-			beacon.position.y = earth.position.y;
-			beacon.position.z = earth.position.z;
-			beacon.target = satellite01;
-			scene.add(beacon);
+			satellites = new THREE.Object3D();
+			var satelliteBodyGeometry = new THREE.BoxGeometry(0.05, 0.05, 0.05);
+			var satelliteBodyMaterial = new THREE.MeshPhongMaterial({color: 0xFFD700});
+			var satellitePanelGeometry = new THREE.BoxGeometry(0.005, 0.025, 0.25);
+			var satellitePanelMaterial = new THREE.MeshPhongMaterial({color: 0x0EBFE9});
+			var satelliteLensGeometry = new THREE.BoxGeometry(0.02, 0.02, 0.02);
+			var satelliteLensMaterial = new THREE.MeshPhongMaterial({color: 0xCCCCCC});
+			var satellite01 = new THREE.Object3D();
+			var satellite02 = new THREE.Object3D();
+			//Main body of the satellite
+			var satelliteBody01 = new THREE.Mesh( satelliteBodyGeometry, satelliteBodyMaterial );
+			satelliteBody01.position.x = earth.position.x - 1.3;
+			satelliteBody01.position.y = earth.position.y;
+			satelliteBody01.position.z = earth.position.z;
+			satellite01.add(satelliteBody01);
+			//Satellite panels
+			var satellitePanel01 = new THREE.Mesh( satellitePanelGeometry, satellitePanelMaterial );
+			satellitePanel01.position.x = earth.position.x - 1.3;
+			satellitePanel01.position.y = earth.position.y;
+			satellitePanel01.position.z = earth.position.z;
+			satellite01.add(satellitePanel01);
+			//Satellite lens
+			var satelliteLens01 = new THREE.Mesh( satelliteLensGeometry, satelliteLensMaterial );
+			satelliteLens01.position.x = earth.position.x - 1.27;
+			satelliteLens01.position.y = earth.position.y;
+			satelliteLens01.position.z = earth.position.z;
+			satellite01.add(satelliteLens01);
+			//Satellite red lights
+			beacon01 = new THREE.SpotLight( 0xFF0000 );
+		    beacon01.position.x = earth.position.x - 1.15;
+			beacon01.position.y = earth.position.y;
+			beacon01.position.z = earth.position.z;
+			beacon01.target = satelliteBody01;
+			satellite01.add(beacon01);
+			//Main body of the satellite
+			var satelliteBody02 = new THREE.Mesh( satelliteBodyGeometry, satelliteBodyMaterial.clone() );
+			satelliteBody02.position.x = earth.position.x + 1.6;
+			satelliteBody02.position.y = earth.position.y;
+			satelliteBody02.position.z = earth.position.z + 1;
+			satelliteBody02.material.color.setHex(0xAAAAAA);
+			satellite02.add(satelliteBody02);
+			//Satellite panels
+			var satellitePanel02 = new THREE.Mesh( satellitePanelGeometry, satellitePanelMaterial.clone() );
+			satellitePanel02.position.x = earth.position.x + 1.6;
+			satellitePanel02.position.y = earth.position.y;
+			satellitePanel02.position.z = earth.position.z + 1;
+			satellitePanel02.rotation.x += 0.5;
+			satellite02.add(satellitePanel02);
+			//Satellite lens
+			var satelliteLens02 = new THREE.Mesh( satelliteLensGeometry, satelliteLensMaterial.clone() );
+			satelliteLens02.position.x = earth.position.x + 1.57;
+			satelliteLens02.position.y = earth.position.y;
+			satelliteLens02.position.z = earth.position.z + 1;
+			satelliteLens02.material.color.setHex(0xFFD700);
+			satellite02.add(satelliteLens02);
+			//Satellite red lights
+			beacon02 = new THREE.SpotLight( 0x00FF00 );
+		    beacon02.position.x = earth.position.x + 1.14;
+			beacon02.position.y = earth.position.y;
+			beacon02.position.z = earth.position.z + 0.7;
+			beacon02.target = satelliteBody02;
+			satellite01.add(beacon02);
+			//Add satellite to satellite group
 			satellites.add( satellite01 );
+			satellites.add( satellite02 );
 			scene.add(satellites);
+			/**********************************************************************************************/
 		    // Resizes Three.js, HTML, and CSS elements with a change in window size.
 		    window.addEventListener( 'resize', onWindowResize, false);
 		    // Contains the 1st POV, and all HUD elements.
@@ -173,6 +272,7 @@
 				camera.up.z = view.up[2];
 				view.camera = camera;
 			}
+			camera = views[cameraCurView].camera;
 			// Activates the update loop.
 		    render();
 		}
@@ -187,7 +287,27 @@
 		}
 		function openSettings()
 		{
-			console.log("click");
+			console.log("Settings");
+		}
+		function openResearch()
+		{
+			console.log("Research");
+		}
+		function openUpgrades()
+		{
+			console.log("Upgrades");
+		}
+		function openHacking()
+		{
+			console.log("Hacking");
+		}
+		function openCameras()
+		{
+			cameraCurView++;
+			if(cameraCurView >= 5)
+			{
+				cameraCurView = 0;
+			}
 		}
 		// The update loop.
 		function render()
@@ -195,20 +315,21 @@
 			updateCounter++;
 			if(updateCounter % 60 == 0)
 			{
-				if(beacon.intensity != 0)
+				if(beacon01.intensity != 0)
 				{
-					beacon.intensity = 0;
+					beacon01.intensity = 0;
+					beacon02.intensity = 0.5;
 				}
 				else
 				{
-					beacon.intensity = 2;
+					beacon01.intensity = 2;
+					beacon02.intensity = 0;
 				}
 			}
 			moonOrbit.rotation.y += 0.0002;
+			satellites.rotation.y += 0.0001;
 			earth.rotation.y += 0.0005;
 			clouds.rotation.y += 0.0005;
-
-			requestAnimationFrame( render );
 
 			for(var viewNum = 0; viewNum < views.length; viewNum++)
 			{
@@ -223,9 +344,11 @@
 
 				camera.aspect = WIDTH / HEIGHT;
 				camera.updateProjectionMatrix();
-
-				renderer.render( scene, camera );
 			}
+
+			camera = views[cameraCurView].camera;
+			renderer.render( scene, camera );
+			requestAnimationFrame( render );
 		}
 	</script>
 </head>
@@ -239,7 +362,12 @@
 <div id="middle-left"></div>
 <div id="middle-right"></div>
 <div id="bottom-left"></div>
-<div id="bottom-center"></div>
+<div id="bottom-center">
+	<button id="btn-research" onclick="openResearch()"></button>
+	<button id="btn-upgrade" onclick="openUpgrades()"></button>
+	<button id="btn-hacking" onclick="openHacking()"></button>
+	<button id="btn-camera" onclick="openCameras()"></button>
+</div>
 <div id="bottom-right">
 	<button id="btn-settings" onclick="openSettings()"></button>
 </div>
