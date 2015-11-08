@@ -290,16 +290,16 @@ function attachViewsToHTML()
 }
 function createRenderers()
 {
-	if(!window.WebGLRenderingContext)
+	if(window.WebGLRenderingContext)
+	{
+		renderer = new THREE.WebGLRenderer();
+	    console.log("This browser supports WebGL");
+	}
+	else
 	{
 	    renderer = new THREE.CanvasRenderer();
 	    console.log("This browser doesn't support WebGL");
 	}
-	else
-	{
-		renderer = new THREE.WebGLRenderer();
-	    console.log("This browser supports WebGL");
-    }
 	renderer.setClearColor( 0x000000, 0 );
 	renderer.setSize( WIDTH, HEIGHT );
 	renderer.autoClear = false;
