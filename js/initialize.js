@@ -15,7 +15,7 @@ function init()
 	/*************************************************************************/
 	createMoon();				// Creates and places the moon.
 	/*************************************************************************/
-	createAxes();				// Helper axis for later raycast tests.
+	//createAxes();				// Helper axis for later raycast tests.
 	/*************************************************************************/
 	createRenderers();			// Creates all renderers for the scene.
 	/*************************************************************************/
@@ -248,6 +248,21 @@ function registerListeners()
 {
 	// Resizes Three.js, HTML, and CSS elements with a change in window size.
 	window.addEventListener( 'resize', onWindowResize, false);
+	document.getElementById("power-bar").addEventListener( 'change', onPowerBarChange, false);
+	document.getElementById("visibility-bar").addEventListener( 'change', onVisibilityBarChange, false);
+	document.getElementById("surveillance-bar").addEventListener( 'change', onSurveillanceBarChange, false);
+}
+function onPowerBarChange(e)
+{
+	console.log("Power Bar: " + document.getElementById("power-bar").value);
+}
+function onVisibilityBarChange(e)
+{
+	console.log("Visibility Bar: " + document.getElementById("visibility-bar").value);
+}
+function onSurveillanceBarChange(e)
+{
+	console.log("Surveillance Bar: " + document.getElementById("surveillance-bar").value);
 }
 function loadCameras()
 {
@@ -275,7 +290,16 @@ function attachViewsToHTML()
 }
 function createRenderers()
 {
-	renderer = new THREE.WebGLRenderer();
+	if(!window.WebGLRenderingContext)
+	{
+	    renderer = new THREE.CanvasRenderer();
+	    console.log("This browser doesn't support WebGL");
+	}
+	else
+	{
+		renderer = new THREE.WebGLRenderer();
+	    console.log("This browser supports WebGL");
+    }
 	renderer.setClearColor( 0x000000, 0 );
 	renderer.setSize( WIDTH, HEIGHT );
 	renderer.autoClear = false;

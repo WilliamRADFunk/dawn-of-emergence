@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 
 <head>
 	<!-- Resets all default browser stylings for a clean slate -->
@@ -20,6 +20,10 @@
 	<script src="js/external/three.js"></script>
 	<!-- Allows for keyboard listeners -->
 	<script src="js/external/threex.keyboardstate.js"></script>
+	<!-- Necessary for Canvas to work -->
+	<script src="js/external/Projector.js"></script>
+	<!-- Canvas library -->
+	<script src="js/external/CanvasRenderer.js"></script>
 	<!-- Global variables -->
 	<script src="js/data.js"></script>
 	<!-- Setup the game -->
@@ -33,7 +37,11 @@
 	<div id="top-left"></div>
 	<div id="top-center"></div>
 	<div id="top-right"></div>
-	<div id="middle-left"></div>
+	<div id="middle-left">
+		<input id="power-bar" type="range" orient="vertical" />
+		<input id="visibility-bar" type="range" orient="vertical" />
+		<input id="surveillance-bar" type="range" orient="vertical" />
+	</div>
 	<div id="middle-right">
 		<div id="stat-screen">
 			<h2>SAT TYPE:</h2>
@@ -72,5 +80,7 @@
 		You are a software author who has created a Solar System simulator and you want to use my planet texture maps in your program. Since the primary intent of your use is to create real time renderings utilizing the planet texture maps as a resource in your software product, this is an acceptable use under my copyright terms."
 
 	* Symphonic music from https://archive.org/details/uso20080601 with a Attribution-Noncommercial-No Derivative Works 3.0 United States license. Composer is Gustav Mahler. Other credits can be found at the above URL.
+
+	* HUD textures from http://n-somnium.com with private license for use in this game only by Andrea Acosta Duarte.
 
 -->

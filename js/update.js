@@ -26,7 +26,7 @@ function render()
 	moonOrbit.rotation.y += 0.0002;
 	satellites.rotation.y += 0.0001;
 	earth.rotation.y += 0.0005;
-	axisOrbit.rotation.y += 0.0005;
+	//axisOrbit.rotation.y += 0.0005;
 	clouds.rotation.y += 0.0005;
 
 	for(var viewNum = 0; viewNum < views.length; viewNum++)

@@ -95,6 +95,14 @@ body
 	top: 15%;
 	width: 10%;
 }
+#middle-left input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 5%;
+    height: 80%;
+    margin: 40% 10% 0% 10%;
+}
 #middle-right
 {
 	background-color: transparent;
