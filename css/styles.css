@@ -10,6 +10,38 @@ textarea
 	pointer-events: none;
 	resize: none;
 }
+#btn-research
+{
+	background: url("../assets/image/btn-research_unclicked.png") no-repeat;
+}
+#btn-research:active
+{
+	background: url("../assets/image/btn-research_clicked.png") no-repeat;
+}
+#btn-upgrade
+{
+	background: url("../assets/image/btn-upgrade_unclicked.png") no-repeat;
+}
+#btn-upgrade:active
+{
+	background: url("../assets/image/btn-upgrade_clicked.png") no-repeat;
+}
+#btn-hacking
+{
+	background: url("../assets/image/btn-hacking_unclicked.png") no-repeat;
+}
+#btn-hacking:active
+{
+	background: url("../assets/image/btn-hacking_clicked.png") no-repeat;
+}
+#btn-camera
+{
+	background: url("../assets/image/btn-camera_unclicked.png") no-repeat;
+}
+#btn-camera:active
+{
+	background: url("../assets/image/btn-camera_clicked.png") no-repeat;
+}
 #btn-settings
 {
 	height: 70% !important;
@@ -32,7 +64,9 @@ textarea
 	margin: 10% auto 0% auto;
 	width: 70% !important;
 }
-#btn-settings:focus
+#btn-settings:focus,
+#bottom-center button:focus
+
 {
 	outline: 0;
 }
@@ -154,8 +188,13 @@ textarea
 	top: 90%;
 	width: 70%;
 }
-#bottom-center button
+#bottom-center button,
+#bottom-center button:active
 {
+	background-color: transparent;
+	background-size: 100% 100%;
+	border: none;
+	display: block;
 	float: left;
 	font-size: 10px;
 	min-width: 40px;

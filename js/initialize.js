@@ -327,18 +327,6 @@ function createClock()
 		secondTick.position.set(i+10, i, 0);
 		scene2.add(secondTick);
 	}
-
-	var textGeometry = new THREE.TextGeometry("0",
-		{
-			size: 3,
-			height: 0.2,
-			curveSegments: 20,
-			bevelEnabled: false
-		});
-	var textMaterial = new THREE.MeshLambertMaterial( {color: 0x49E20E} );
-	var NumDays = new THREE.Mesh( textGeometry, textMaterial );
-	NumDays.position.set(-1.5, -1.5, 0);
-	scene2.add( NumDays );
 }
 function createAxes()
 {

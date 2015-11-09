@@ -2,7 +2,7 @@
 function render()
 {
 	updateCounter++;
-	if(updateCounter % 60 == 0)
+	if(updateCounter % 10 == 0)
 	{
 		updateClock();
 	}
@@ -176,6 +176,19 @@ function updateClock()
 			}
 		}
 	}
+	scene2.remove(numDays);
+	var textGeometry = new THREE.TextGeometry(days,
+		{
+			size: 3,
+			height: 0.2,
+			curveSegments: 20,
+			bevelEnabled: false
+		});
+	var textMaterial = new THREE.MeshLambertMaterial( {color: 0x49E20E} );
+	numDays = new THREE.Mesh( textGeometry, textMaterial );
+	numDays.position.set(-1.5, -1.5, 0);
+	scene2.add( numDays );
+
 	updateTimeStamp();
 }
 function updateTimeStamp()

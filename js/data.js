@@ -19,6 +19,7 @@ var seconds = 0;
 var minutes = 0;
 var hours = 0;
 var days = 0;
+var numDays = 0;
 var timeStamp = "00:00:00:00";
 var	views =					// All of the camera views
 	[	
