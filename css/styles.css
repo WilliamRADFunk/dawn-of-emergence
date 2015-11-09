@@ -6,7 +6,9 @@ body
 }
 textarea
 {
+	overflow: hidden;
 	pointer-events: none;
+	resize: none;
 }
 #btn-settings
 {

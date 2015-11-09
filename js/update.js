@@ -164,4 +164,5 @@ function updateEventScreen(text)
 	{
 		eventScreen.value += timeStamp + " ==> " + text;
 	}
+	eventScreen.scrollTop = eventScreen.scrollHeight;
 }
