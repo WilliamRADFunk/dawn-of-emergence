@@ -40,6 +40,7 @@ textarea
 {
 	background-color: #000000;
 	background-size: 100% 100%;
+	border: 1px solid #A9A9A9;
 	border-radius: 10px;
 	color: #49E20E;
 	height: 75%;
@@ -80,7 +81,7 @@ textarea
 	left: 0%;
 	top: 0%;
 	width: 15%;
-	z-index: 1000;
+	z-index: 10;
 }
 #top-center
 {
@@ -102,7 +103,7 @@ textarea
 	left: 85%;
 	top: 0%;
 	width: 15%;
-	z-index: 1000;
+	z-index: 10;
 }
 #middle-left
 {
@@ -141,7 +142,7 @@ textarea
 	left: 0%;
 	top: 85%;
 	width: 15%;
-	z-index: 1000;
+	z-index: 10;
 }
 #bottom-center
 {
@@ -172,12 +173,25 @@ textarea
 	left: 85%;
 	top: 85%;
 	width: 15%;
-	z-index: 1000;
+	z-index: 10;
+}
+#space-clock
+{
+	background-size: 100% 100%;
+	border:1px solid #A9A9A9;
+	display: block;
+	height: 75%;
+	left: 15%;
+	position: absolute;
+	top: 10%;
+	width: 75%;
+	z-index: 20;
 }
 #stat-screen
 {
 	background-color: #000000;
 	background-size: 100% 100%;
+	border: 1px solid #A9A9A9;
 	border-radius: 10px;
 	color: #49E20E;
 	height: 85%;
@@ -219,4 +233,24 @@ textarea
 .left-indent
 {
 	margin-left: 5%;
+}
+.left-screen
+{
+	border-color: #A9A9A9;
+	border-radius: 5px 0px 0px 5px;
+	border-style: solid;
+	border-width: 1px 0px 1px 1px;	
+}
+.middle-screen
+{
+	border-color: #A9A9A9;
+	border-style: solid;
+	border-width: 1px 0px 1px 0px;	
+}
+.right-screen
+{
+	border-color: #A9A9A9;
+	border-radius: 0px 5px 5px 0px;
+	border-style: solid;
+	border-width: 1px 1px 1px 0px;	
 }

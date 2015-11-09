@@ -30,6 +30,8 @@
 	<script src="js/initialize.js"></script>
 	<!-- Listeners, user interaction, and render loop -->
 	<script src="js/update.js"></script>
+	<!-- Font used to make scoreboard label, and score -->
+	<script src='fonts/helvetiker_regular.typeface.js'></script>
 </head>
 
 <body>
@@ -38,20 +40,22 @@
 	<div id="top-center">
 		<textarea cols="30" rows="3" id="event-screen"></textarea>
 	</div>
-	<div id="top-right"></div>
+	<div id="top-right">
+		<div id="space-clock"></div>
+	</div>
 	<div id="middle-left">
 		<div class="range-bar left-indent">
-			<div class="range-quantity"><p id="power-quantity">40</p></div>			
+			<div class="range-quantity left-screen"><p id="power-quantity">40</p></div>			
 			<input id="power-bar" type="range" orient="vertical" value="40" />
 			<div id="power-icon"></div>
 		</div>
 		<div class="range-bar">
-			<div class="range-quantity"><p id="visibility-quantity">25</p></div>
+			<div class="range-quantity middle-screen"><p id="visibility-quantity">25</p></div>
 			<input id="visibility-bar" type="range" orient="vertical" value="25"/>
 			<div id="visibility-icon"></div>
 		</div>
 		<div class="range-bar">
-			<div class="range-quantity"><p id="surveillance-quantity">10</p></div>
+			<div class="range-quantity right-screen"><p id="surveillance-quantity">10</p></div>
 			<input id="surveillance-bar" type="range" orient="vertical" value="10" />
 			<div id="surveillance-icon"></div>
 		</div>

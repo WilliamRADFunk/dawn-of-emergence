@@ -1,8 +1,10 @@
-var camera;
+var camera, clockCamera;
 var scene;
-var renderer;
+var renderer, renderer2;
 var WIDTH;
 var HEIGHT;
+var clockWIDTH;
+var clockHEIGHT;
 var views;
 var cameraCurView = 0;
 var earth;
@@ -13,6 +15,11 @@ var keyboard = new THREEx.KeyboardState();
 var moonOrbit;
 var axisOrbit;
 var updateCounter = 0;
+var seconds = 0;
+var minutes = 0;
+var hours = 0;
+var days = 0;
+var timeStamp = "00:00:00:00";
 var	views =					// All of the camera views
 	[	
 		{

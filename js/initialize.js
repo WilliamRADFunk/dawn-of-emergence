@@ -5,7 +5,8 @@ function init()
 	/*************************************************************************/
 	loadWorkers();				// Creates webworkers for later use.
 	/*************************************************************************/
-	scene = new THREE.Scene();	// Three.js scene (contains everything).
+	scene = new THREE.Scene();	// Three.js scene (contains universe).
+	scene2 = new THREE.Scene();	// Three.js scene (contains space clock).
 	/*************************************************************************/
 	loadSounds();				// Loads all sounds, and activates music.
 	/*************************************************************************/
@@ -16,6 +17,8 @@ function init()
 	createMoon();				// Creates and places the moon.
 	/*************************************************************************/
 	//createAxes();				// Helper axis for later raycast tests.
+	/*************************************************************************/
+	createClock();				// creates the graphical spheres of the clock.
 	/*************************************************************************/
 	createRenderers();			// Creates all renderers for the scene.
 	/*************************************************************************/
@@ -115,6 +118,8 @@ function createMainLighting()
 	Sun.position.y = earth.position.y + 70;
 	Sun.position.z = earth.position.z - 100;
 	scene.add(Sun);
+
+	scene2.add(new THREE.AmbientLight(0xFFFFFF));
 }
 function createSatellites(numSats)
 {
@@ -270,6 +275,10 @@ function loadCameras()
 		view.camera = camera;
 	}
 	camera = views[cameraCurView].camera;
+
+	clockCamera =  new THREE.PerspectiveCamera( 45, clockWIDTH / clockHEIGHT, 0.01, 1000 );
+	clockCamera.position.set(0, 0, 20);
+	clockCamera.lookAt(scene2.position);
 }
 function attachViewsToHTML()
 {
@@ -277,22 +286,59 @@ function attachViewsToHTML()
 	var container = document.getElementById("mainview");
 	document.body.appendChild( container );
 	container.appendChild( renderer.domElement );
+	// Contains the space clock to upper right corner.
+	var pinPoint = document.getElementById("top-right");
+	var container2 = document.getElementById("space-clock");
+	pinPoint.appendChild( container2 );
+	container2.appendChild( renderer2.domElement );
 }
 function createRenderers()
 {
+	clockWIDTH = document.getElementById("space-clock").offsetWidth - 3;
+	clockHEIGHT = document.getElementById("space-clock").offsetHeight - 2;
+
 	if(window.WebGLRenderingContext)
 	{
 		renderer = new THREE.WebGLRenderer();
+		renderer2 = new THREE.WebGLRenderer();
 	    console.log("This browser supports WebGL");
 	}
 	else
 	{
 	    renderer = new THREE.CanvasRenderer();
+	    renderer2 = new THREE.CanvasRenderer();
 	    console.log("This browser doesn't support WebGL");
 	}
 	renderer.setClearColor( 0x000000, 0 );
+	renderer2.setClearColor( 0x000000, 0 );
 	renderer.setSize( WIDTH, HEIGHT );
+	renderer2.setSize( clockWIDTH, clockHEIGHT );
 	renderer.autoClear = false;
+	renderer2.autoClear = false;
+}
+function createClock()
+{
+	var secondBars = new THREE.Object3D();
+	var secondGeometry = new THREE.BoxGeometry(1, 1, 1);
+	var secondMaterial = new THREE.MeshBasicMaterial({color: 'white'});
+	for(var i = 0; i < 60; i++)
+	{
+		var secondTick = new THREE.Mesh(secondGeometry, secondMaterial);
+		secondTick.position.set(i+10, i, 0);
+		scene2.add(secondTick);
+	}
+
+	var textGeometry = new THREE.TextGeometry("0",
+		{
+			size: 3,
+			height: 0.2,
+			curveSegments: 20,
+			bevelEnabled: false
+		});
+	var textMaterial = new THREE.MeshLambertMaterial( {color: 0x49E20E} );
+	var NumDays = new THREE.Mesh( textGeometry, textMaterial );
+	NumDays.position.set(-1.5, -1.5, 0);
+	scene2.add( NumDays );
 }
 function createAxes()
 {
