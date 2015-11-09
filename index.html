@@ -35,12 +35,26 @@
 <body>
 	<div id="mainview"></div>
 	<div id="top-left"></div>
-	<div id="top-center"></div>
+	<div id="top-center">
+		<textarea cols="30" rows="3" id="event-screen"></textarea>
+	</div>
 	<div id="top-right"></div>
 	<div id="middle-left">
-		<input id="power-bar" type="range" orient="vertical" />
-		<input id="visibility-bar" type="range" orient="vertical" />
-		<input id="surveillance-bar" type="range" orient="vertical" />
+		<div class="range-bar left-indent">
+			<div class="range-quantity"><p id="power-quantity">40</p></div>			
+			<input id="power-bar" type="range" orient="vertical" value="40" />
+			<div id="power-icon"></div>
+		</div>
+		<div class="range-bar">
+			<div class="range-quantity"><p id="visibility-quantity">25</p></div>
+			<input id="visibility-bar" type="range" orient="vertical" value="25"/>
+			<div id="visibility-icon"></div>
+		</div>
+		<div class="range-bar">
+			<div class="range-quantity"><p id="surveillance-quantity">10</p></div>
+			<input id="surveillance-bar" type="range" orient="vertical" value="10" />
+			<div id="surveillance-icon"></div>
+		</div>
 	</div>
 	<div id="middle-right">
 		<div id="stat-screen">

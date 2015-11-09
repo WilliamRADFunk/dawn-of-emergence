@@ -4,6 +4,10 @@ body
 	margin: auto auto;
 	width: 97%;
 }
+textarea
+{
+	pointer-events: none;
+}
 #btn-settings
 {
 	height: 70% !important;
@@ -29,6 +33,19 @@ body
 #btn-settings:focus
 {
 	outline: 0;
+}
+#event-screen
+{
+	background-color: #000000;
+	background-size: 100% 100%;
+	border-radius: 10px;
+	color: #49E20E;
+	height: 75%;
+	left: 10%;
+	padding-left: 2px;
+	position: absolute;
+	top: 6%;
+	width: 80%;
 }
 #mainview
 {
@@ -99,9 +116,8 @@ body
 {
     writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical; /* WebKit */
-    width: 5%;
     height: 80%;
-    margin: 40% 10% 0% 10%;
+    width: 100%;
 }
 #middle-right
 {
@@ -179,4 +195,26 @@ body
 	font-size: 10px;
 	margin: 5px 0px 10px 0px;
 	text-align: center;
+}
+.range-bar
+{
+	float: left;
+    height: 80%;
+    margin-top: 40%;
+    width: 30%;
+}
+
+.range-quantity
+{
+	background-color: #000000;
+	color: #49E20E;
+	font-size: 15px;
+	height: 10%;
+	line-height: 250%;
+	text-align: center;
+	width: 100%;
+}
+.left-indent
+{
+	margin-left: 5%;
 }

@@ -29,6 +29,8 @@ function init()
 	/*************************************************************************/
 	loadCameras();				// Establishes all of the viewpoints.
 	/*************************************************************************/
+	updateEventScreen();		// Starting message
+	/*************************************************************************/
 	render();					// Activates the update loop.
 }
 function loadWorkers()
@@ -251,18 +253,6 @@ function registerListeners()
 	document.getElementById("power-bar").addEventListener( 'change', onPowerBarChange, false);
 	document.getElementById("visibility-bar").addEventListener( 'change', onVisibilityBarChange, false);
 	document.getElementById("surveillance-bar").addEventListener( 'change', onSurveillanceBarChange, false);
-}
-function onPowerBarChange(e)
-{
-	console.log("Power Bar: " + document.getElementById("power-bar").value);
-}
-function onVisibilityBarChange(e)
-{
-	console.log("Visibility Bar: " + document.getElementById("visibility-bar").value);
-}
-function onSurveillanceBarChange(e)
-{
-	console.log("Surveillance Bar: " + document.getElementById("surveillance-bar").value);
 }
 function loadCameras()
 {
