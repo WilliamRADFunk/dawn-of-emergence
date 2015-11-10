@@ -27,8 +27,8 @@ function render()
 			satellitePlayer.children[7].material.visible = false;
 		}
 	}
-	moonOrbit.rotation.y += 0.00015;
-	satellites.rotation.y += 0.00008;
+	moonOrbit.rotation.y += 0.0001;
+	satellites.rotation.y += 0.00022;
 	earth.rotation.y += 0.0002;
 	//axisOrbit.rotation.y += 0.0005;
 	clouds.rotation.y += 0.0002;
@@ -49,7 +49,13 @@ function render()
 	}
 
 	camera = views[cameraCurView].camera;
-	if(updateCounter >= 20000)
+	if(updateCounter >= 33000 && backgroundMusic01 != null)
+	{
+		backgroundMusic01.pause();
+		backgroundMusic02.play();
+		backgroundMusic01 = null;
+	}
+	if(updateCounter >= 40000)
 	{
 		updateCounter = 1;
 	}

@@ -43,9 +43,9 @@ function loadWorkers()
 }
 function loadSounds()
 {
-	var backgroundMusic = new Audio("assets/audio/mahler_05.mp3");
-	backgroundMusic.autoplay = true;
-	backgroundMusic.loop = true;
+	backgroundMusic01 = new Audio("assets/audio/The_Blue_Danube_StraussII.mp3");
+	backgroundMusic01.autoplay = true;
+	backgroundMusic02 = new Audio("assets/audio/mahler_05.mp3");
 }
 // The Universe in all its stary awesomeness.
 function createStars()

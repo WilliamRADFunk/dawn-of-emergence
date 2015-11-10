@@ -12,35 +12,51 @@ textarea
 }
 #btn-research
 {
-	background: url("../assets/image/btn-research_unclicked.png") no-repeat;
+	background-position: 0px 0px;
+	background-size-width: 69px;
+	background-size-height: 45px;
 }
 #btn-research:active
 {
-	background: url("../assets/image/btn-research_clicked.png") no-repeat;
+	background-position: 0px -45px;
+	background-size-width: 69px;
+	background-size-height: 45px;
 }
 #btn-upgrade
 {
-	background: url("../assets/image/btn-upgrade_unclicked.png") no-repeat;
+	background-position: -69px 0px;
+	background-size-width: 69px;
+	background-size-height: 45px;
 }
 #btn-upgrade:active
 {
-	background: url("../assets/image/btn-upgrade_clicked.png") no-repeat;
+	background-position: -69px -45px;
+	background-size-width: 69px;
+	background-size-height: 45px;
 }
 #btn-hacking
 {
-	background: url("../assets/image/btn-hacking_unclicked.png") no-repeat;
+	background-position: -138px 0px;
+	background-size-width: 69px;
+	background-size-height: 45px;
 }
 #btn-hacking:active
 {
-	background: url("../assets/image/btn-hacking_clicked.png") no-repeat;
+	background-position: -138px -45px;
+	background-size-width: 69px;
+	background-size-height: 45px;
 }
 #btn-camera
 {
-	background: url("../assets/image/btn-camera_unclicked.png") no-repeat;
+	background-position: -207px 0px;
+	background-size-width: 69px;
+	background-size-height: 45px;
 }
 #btn-camera:active
 {
-	background: url("../assets/image/btn-camera_clicked.png") no-repeat;
+	background-position: -207px -45px;
+	background-size-width: 69px;
+	background-size-height: 45px;
 }
 #btn-settings
 {
@@ -192,16 +208,14 @@ textarea
 #bottom-center button:active
 {
 	background-color: transparent;
-	background-size: 100% 100%;
+	background-image: url("../assets/image/btn-sprite_map.png");
+	background-repeat: no-repeat;
 	border: none;
 	display: block;
 	float: left;
-	font-size: 10px;
-	min-width: 40px;
-	min-height: 40px;
-	width: 10%;
-	height: 10%;
-	margin: 2% 5% 0% 9%;
+	min-width: 69px;
+	min-height: 45px;
+	margin: 2% 5% 0% 11%;
 }
 #bottom-right
 {
