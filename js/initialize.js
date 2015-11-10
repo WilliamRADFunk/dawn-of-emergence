@@ -318,15 +318,41 @@ function createRenderers()
 }
 function createClock()
 {
-	var secondBars = new THREE.Object3D();
-	var secondGeometry = new THREE.BoxGeometry(1, 1, 1);
-	var secondMaterial = new THREE.MeshBasicMaterial({color: 'white'});
+	secondBars = new THREE.Object3D();
+	minuteBars = new THREE.Object3D();
+	hourBars = new THREE.Object3D();
+	var timeGeometry = new THREE.CylinderGeometry(0.3, 0.3, 0.1, 10, 10, false);
+	var timeMaterial = new THREE.MeshBasicMaterial({color: 'white'});
 	for(var i = 0; i < 60; i++)
 	{
-		var secondTick = new THREE.Mesh(secondGeometry, secondMaterial);
-		secondTick.position.set(i+10, i, 0);
-		scene2.add(secondTick);
+		var secondTick = new THREE.Mesh(timeGeometry, timeMaterial.clone());
+		var x_coord = 5 * Math.cos((i * 2)*(2 * Math.PI/120));
+		var y_coord = 5 * Math.sin((i * 2)*(2 * Math.PI/120));
+		secondTick.position.set(x_coord, y_coord, 0);
+		secondTick.rotation.x += Math.PI / 2;
+		secondBars.add(secondTick);
+
+		var minuteTick = new THREE.Mesh(timeGeometry, timeMaterial.clone());
+		x_coord = 6 * Math.cos((i * 2)*(2 * Math.PI/120));
+		y_coord = 6 * Math.sin((i * 2)*(2 * Math.PI/120));
+		minuteTick.material.color.setHex(0xFF00FF);
+		minuteTick.position.set(x_coord, y_coord, 0);
+		minuteTick.rotation.x += Math.PI / 2;
+		minuteBars.add(minuteTick);
 	}
+	for(var j = 0; j < 24; j++)
+	{
+		var hourTick = new THREE.Mesh(timeGeometry, timeMaterial.clone());
+		x_coord = 7 * Math.cos((j)*(2 * Math.PI/24));
+		y_coord = 7 * Math.sin((j)*(2 * Math.PI/24));
+		hourTick.material.color.setHex(0xFFFF00);
+		hourTick.position.set(x_coord, y_coord, 0);
+		hourTick.rotation.x += Math.PI / 2;
+		hourBars.add(hourTick);
+	}
+	scene2.add(secondBars);
+	scene2.add(minuteBars);
+	scene2.add(hourBars);
 }
 function createAxes()
 {

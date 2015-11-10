@@ -2,7 +2,7 @@
 function render()
 {
 	updateCounter++;
-	if(updateCounter % 10 == 0)
+	if(updateCounter % 30 == 0)
 	{
 		updateClock();
 	}
@@ -27,11 +27,11 @@ function render()
 			satellitePlayer.children[7].material.visible = false;
 		}
 	}
-	moonOrbit.rotation.y += 0.0002;
-	satellites.rotation.y += 0.0001;
-	earth.rotation.y += 0.0005;
+	moonOrbit.rotation.y += 0.00015;
+	satellites.rotation.y += 0.00008;
+	earth.rotation.y += 0.0002;
 	//axisOrbit.rotation.y += 0.0005;
-	clouds.rotation.y += 0.0005;
+	clouds.rotation.y += 0.0002;
 
 	for(var viewNum = 0; viewNum < views.length; viewNum++)
 	{
@@ -160,36 +160,80 @@ function openCameras()
 }
 function updateClock()
 {
+	// Tells visual portion of clock whether to refresh the full circle.
+	var secs = false;
+	var mins = false;
+	var hrs = false;
+	// Increases time by one in-game second.
 	seconds++;
 	if(seconds >= 60)
 	{
 		seconds = 0;
+		secs = true;
 		minutes++;
 		if(minutes >= 60)
 		{
 			minutes = 0;
+			mins = true;
 			hours++;
 			if(hours >= 24)
 			{
 				days++;
 				hours = 0;
+				hrs = true;
 			}
 		}
 	}
-	scene2.remove(numDays);
-	var textGeometry = new THREE.TextGeometry(days,
-		{
-			size: 3,
-			height: 0.2,
-			curveSegments: 20,
-			bevelEnabled: false
-		});
-	var textMaterial = new THREE.MeshLambertMaterial( {color: 0x49E20E} );
-	numDays = new THREE.Mesh( textGeometry, textMaterial );
-	numDays.position.set(-1.5, -1.5, 0);
-	scene2.add( numDays );
-
+	// Updates visual portion of space clock.
+	updateClockVisual(secs, mins, hrs);
+	// Updates time stamp, used in event declarations that are posted to top-center panel.
 	updateTimeStamp();
+}
+function updateClockVisual(secs, mins, hrs)
+{
+	// Must destroy old day, before entering a new one.
+	if(oldDays != days || days == 0)
+	{
+		scene2.remove(numDays);
+		var textGeometry = new THREE.TextGeometry(days,
+			{
+				size: 3,
+				height: 0.2,
+				curveSegments: 20,
+				bevelEnabled: false
+			});
+		var textMaterial = new THREE.MeshLambertMaterial( {color: 0x49E20E} );
+		numDays = new THREE.Mesh( textGeometry, textMaterial );
+		numDays.position.set(-1.5, -1.5, 0);
+		scene2.add( numDays );
+		oldDays = days;
+	}
+	// Refreshes seconds, minutes, and hours when they hit zero.
+	if(secs)
+	{
+		for(var i = 0; i < 60; i++)
+		{
+			secondBars.children[i].material.visible = true;
+		}
+	}
+	if(mins)
+	{
+		for(var j = 0; j < 60; j++)
+		{
+			minuteBars.children[j].material.visible = true;
+		}
+	}
+	if(hrs)
+	{
+		for(var k = 0; k < 24; k++)
+		{
+			hourBars.children[k].material.visible = true;
+		}
+	}
+	// Hides one tick mark for each increment in time.
+	secondBars.children[seconds].material.visible = false;
+	minuteBars.children[minutes].material.visible = false;
+	hourBars.children[hours].material.visible = false;
 }
 function updateTimeStamp()
 {
