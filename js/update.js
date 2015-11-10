@@ -140,6 +140,10 @@ function onSurveillanceBarChange(e)
 		quantity.style.color = "#49E20E";
 	}
 }
+function openMap()
+{
+	console.log("Map");
+}
 function openSettings()
 {
 	console.log("Settings");
