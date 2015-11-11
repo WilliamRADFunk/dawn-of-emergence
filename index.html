@@ -78,7 +78,17 @@
 			<p id="current-upgrade">None</p>
 		</div>
 	</div>
-	<div id="bottom-left"></div>
+	<div id="bottom-left">
+		<div class="bubble-meter">
+			<div id="red-gauge"><input id="red-bar" type="range" orient="vertical" value="10" /></div>
+		</div>
+		<div class="bubble-meter">
+			<div id="yellow-gauge"><input id="yellow-bar" type="range" orient="vertical" value="10" /></div>
+		</div>
+		<div class="bubble-meter">
+			<div id="blue-gauge"><input id="blue-bar" type="range" orient="vertical" value="10" /></div>
+		</div>
+	</div>
 	<div id="bottom-center">
 		<button id="btn-research" onclick="openResearch()"></button>
 		<button id="btn-upgrade" onclick="openUpgrades()"></button>

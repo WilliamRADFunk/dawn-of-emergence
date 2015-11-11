@@ -49,7 +49,7 @@ function render()
 	}
 
 	camera = views[cameraCurView].camera;
-	if(updateCounter >= 33000 && backgroundMusic01 != null)
+	if(updateCounter >= 10000 && backgroundMusic01 != null)
 	{
 		backgroundMusic01.pause();
 		backgroundMusic02.play();

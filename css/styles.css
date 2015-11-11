@@ -10,6 +10,42 @@ textarea
 	pointer-events: none;
 	resize: none;
 }
+#blue-bar
+{
+	
+}
+#blue-gauge
+{
+	background-color: #0000FF;
+	border-radius: 10px;
+	height: 30%;
+	width: 90%;
+	z-index: 20;
+}
+#red-bar
+{
+	
+}
+#red-gauge
+{
+	background-color: #FF0000;
+	border-radius: 10px;
+	height: 30%;
+	width: 90%;
+	z-index: 20;
+}
+#yellow-bar
+{
+	
+}
+#yellow-gauge
+{
+	background-color: #00FF00;
+	border-radius: 10px;
+	height: 30%;
+	width: 90%;
+	z-index: 20;
+}
 #btn-research
 {
 	background-position: 0px 0px;
@@ -287,11 +323,17 @@ textarea
 	margin: 5px 0px 10px 0px;
 	text-align: center;
 }
+.bubble-meter
+{
+	margin-top: 7px;
+	pointer-events: none;
+}
 .range-bar
 {
 	float: left;
     height: 80%;
     margin-top: 40%;
+    pointer-events: none;
     width: 30%;
 }
 
