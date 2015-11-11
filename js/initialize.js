@@ -16,7 +16,7 @@ function init()
 	/*************************************************************************/
 	createMoon();				// Creates and places the moon.
 	/*************************************************************************/
-	//createAxes();				// Helper axis for later raycast tests.
+	createAxes();				// Helper axis for later raycast tests.
 	/*************************************************************************/
 	createClock();				// creates the graphical spheres of the clock.
 	/*************************************************************************/
@@ -24,7 +24,7 @@ function init()
 	/*************************************************************************/
 	createMainLighting();		// General ambient and main directional light.
 	/*************************************************************************/
-	createSatellites(2);		// Builds and places all satellites.
+	createSatellites(5);		// Builds and places all satellites.
 	/*************************************************************************/
 	registerListeners();		// Registers all Event Listeners.
 	/*************************************************************************/
@@ -123,133 +123,153 @@ function createMainLighting()
 }
 function createSatellites(numSats)
 {
-	//Satellite bodies			
-	satellites = new THREE.Object3D();
-	var satelliteBodyGeometry = new THREE.BoxGeometry(0.05, 0.05, 0.05);
-	var satelliteBodyMaterial = new THREE.MeshPhongMaterial();
-	var satellitePanelGeometry = new THREE.BoxGeometry(0.005, 0.025, 0.25);
-	var satellitePanelMaterial = new THREE.MeshPhongMaterial();
-	satellitePanelMaterial.map = THREE.ImageUtils.loadTexture('assets/images/panel_1.jpg');
-	var satelliteFrontGeometry = new THREE.BoxGeometry(0.02, 0.02, 0.02);
-	var satelliteFrontMaterial = new THREE.MeshPhongMaterial({color: 0xCCCCCC});
-	var satellite01 = new THREE.Object3D();
-	var satellite02 = new THREE.Object3D();
-	//Main body of the satellite
-	satelliteBodyMaterial.map = THREE.ImageUtils.loadTexture('assets/images/satellite_1.png');
-	var satelliteBody01 = new THREE.Mesh( satelliteBodyGeometry, satelliteBodyMaterial );
-	satelliteBody01.position.x = earth.position.x - 1.3;
-	satelliteBody01.position.y = earth.position.y;
-	satelliteBody01.position.z = earth.position.z;
-	satellite01.add(satelliteBody01);
-	//Satellite panels
-	var satellitePanel01 = new THREE.Mesh( satellitePanelGeometry, satellitePanelMaterial );
-	satellitePanel01.position.x = earth.position.x - 1.3;
-	satellitePanel01.position.y = earth.position.y;
-	satellitePanel01.position.z = earth.position.z;
-	satellite01.add(satellitePanel01);
-	//Satellite lens
-	var satelliteFront01 = new THREE.Mesh( satelliteFrontGeometry, satelliteFrontMaterial );
-	satelliteFront01.position.x = earth.position.x - 1.27;
-	satelliteFront01.position.y = earth.position.y;
-	satelliteFront01.position.z = earth.position.z;
-	satellite01.add(satelliteFront01);
-	//Satellite red lights
-	beacon01 = new THREE.SpotLight( 0xFF0000 );
-	beacon01.position.x = earth.position.x - 1.15;
-	beacon01.position.y = earth.position.y;
-	beacon01.position.z = earth.position.z;
-	beacon01.target = satelliteBody01;
-	satellite01.add(beacon01);
-	//Main body of the satellite
-	var satelliteBody02 = new THREE.Mesh( satelliteBodyGeometry, satelliteBodyMaterial.clone() );
-	satelliteBody02.position.x = earth.position.x + 1.6;
-	satelliteBody02.position.y = earth.position.y;
-	satelliteBody02.position.z = earth.position.z + 1;
-	satelliteBody02.material.map = THREE.ImageUtils.loadTexture('assets/images/satellite_2.png');
-	satellite02.add(satelliteBody02);
-	//Satellite panels
-	var satellitePanel02 = new THREE.Mesh( satellitePanelGeometry, satellitePanelMaterial.clone() );
-	satellitePanel02.position.x = earth.position.x + 1.6;
-	satellitePanel02.position.y = earth.position.y;
-	satellitePanel02.position.z = earth.position.z + 1;
-	satellitePanel02.rotation.x += 0.5;
-	satellite02.add(satellitePanel02);
-	//Satellite lens
-	var satelliteFront02 = new THREE.Mesh( satelliteFrontGeometry, satelliteFrontMaterial.clone() );
-	satelliteFront02.position.x = earth.position.x + 1.57;
-	satelliteFront02.position.y = earth.position.y;
-	satelliteFront02.position.z = earth.position.z + 1;
-	satelliteFront02.material.color.setHex(0xFFD700);
-	satellite02.add(satelliteFront02);
-	//Satellite red lights
-	beacon02 = new THREE.SpotLight( 0x00FF00 );
-	beacon02.position.x = earth.position.x + 1.14;
-	beacon02.position.y = earth.position.y;
-	beacon02.position.z = earth.position.z + 0.7;
-	beacon02.target = satelliteBody02;
-	satellite01.add(beacon02);
-	//Add satellite to satellite group
-	satellites.add( satellite01 );
-	satellites.add( satellite02 );
-	scene.add(satellites);
+	//Satellite groups		
+	satelliteGroupAlpha = new THREE.Object3D();
+	satelliteGroupBeta = new THREE.Object3D();
+	satelliteGroupCharlie = new THREE.Object3D();
+	satelliteGroupDelta = new THREE.Object3D();
+	//Create and add satellite to group.
+	for(var i = 0; i < numSats; i++)
+	{
+		var x_delta = Math.random() + Math.random();
+		var y_delta = Number(1.0/(i+1.0));
+		var z_delta = Math.random() + Math.random();
+		satelliteGroupAlpha.add(createSatellite(x_delta, y_delta, z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupAlpha.add(createSatellite(-x_delta, -y_delta, -z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupAlpha.add(createSatellite(-x_delta, y_delta, z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupAlpha.add(createSatellite(x_delta, -y_delta, -z_delta, Math.floor(3 * Math.random()), i%2));
+	}
+	for(var i = 0; i < numSats; i++)
+	{
+		var x_delta = Math.random() + Math.random();
+		var y_delta = Math.random() + Math.random();
+		var z_delta = Number(1.0/(i+1.0));
+		satelliteGroupBeta.add(createSatellite(x_delta, y_delta, z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupBeta.add(createSatellite(-x_delta, -y_delta, -z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupBeta.add(createSatellite(x_delta, -y_delta, z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupBeta.add(createSatellite(-x_delta, y_delta, -z_delta, Math.floor(3 * Math.random()), i%2));
+	}
+	for(var i = 0; i < numSats; i++)
+	{
+		var x_delta = Number(1.0/(i+1.0));
+		var y_delta = Math.random() + Math.random();
+		var z_delta = Math.random() + Math.random();
+		satelliteGroupCharlie.add(createSatellite(x_delta, y_delta, z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupCharlie.add(createSatellite(-x_delta, -y_delta, -z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupCharlie.add(createSatellite(x_delta, y_delta, -z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupCharlie.add(createSatellite(-x_delta, -y_delta, z_delta, Math.floor(3 * Math.random()), i%2));
+	}
+	for(var i = 0; i < numSats; i++)
+	{
+		var x_delta = Number(1.0/(i+1.0));
+		var y_delta = Math.random() + Math.random();
+		var z_delta = Number(1.0/(i+1.0));
+		satelliteGroupDelta.add(createSatellite(x_delta, y_delta, z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupDelta.add(createSatellite(-x_delta, -y_delta, -z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupDelta.add(createSatellite(-x_delta, y_delta, -z_delta, Math.floor(3 * Math.random()), i%2));
+		satelliteGroupDelta.add(createSatellite(x_delta, -y_delta, z_delta, Math.floor(3 * Math.random()), i%2));
+	}
+	scene.add(satelliteGroupAlpha);
+	scene.add(satelliteGroupBeta);
+	scene.add(satelliteGroupCharlie);
+	scene.add(satelliteGroupDelta);
 	/**********************************************************************************************/
+	//Player's satellite
 	satellitePlayer = new THREE.Object3D();
 	//Main body of the satellite
-	var satelliteBodyPlayer = new THREE.Mesh( satelliteBodyGeometry, satelliteBodyMaterial.clone() );
-	satelliteBodyPlayer.position.x = earth.position.x;
-	satelliteBodyPlayer.position.y = earth.position.y + 0.7;
-	satelliteBodyPlayer.position.z = earth.position.z - 2.5;
+	var satelliteBodyPlayer = new THREE.Mesh( new THREE.BoxGeometry(0.05, 0.05, 0.05), new THREE.MeshPhongMaterial() );
+	satelliteBodyPlayer.position.set(earth.position.x, earth.position.y + 0.7, earth.position.z - 2.5);
 	satelliteBodyPlayer.material.map = THREE.ImageUtils.loadTexture('assets/images/satellite_3.png');
 	satellitePlayer.add(satelliteBodyPlayer);
 	//Satellite panels
-	var satellitePanelPlayer = new THREE.Mesh( satellitePanelGeometry, satellitePanelMaterial );
-	satellitePanelPlayer.position.x = earth.position.x;
-	satellitePanelPlayer.position.y = earth.position.y + 0.7;
-	satellitePanelPlayer.position.z = earth.position.z - 2.5;
+	var satellitePanelPlayer = new THREE.Mesh( new THREE.BoxGeometry(0.005, 0.025, 0.25), new THREE.MeshPhongMaterial({color: 0x2A3B66}) );
+	satellitePanelPlayer.position.set(earth.position.x, earth.position.y + 0.7, earth.position.z - 2.5);
 	satellitePanelPlayer.rotation.y = Math.PI / 2;
 	satellitePlayer.add(satellitePanelPlayer);
 	//Satellite front
-	var satelliteFrontPlayer = new THREE.Mesh( satelliteFrontGeometry, satelliteFrontMaterial );
-	satelliteFrontPlayer.position.x = earth.position.x;
-	satelliteFrontPlayer.position.y = earth.position.y + 0.7;
-	satelliteFrontPlayer.position.z = earth.position.z - 2.4;
+	var satelliteFrontPlayer = new THREE.Mesh( new THREE.BoxGeometry(0.02, 0.02, 0.02), new THREE.MeshPhongMaterial() );
+	satelliteFrontPlayer.position.set(earth.position.x, earth.position.y + 0.7, earth.position.z - 2.4);
 	satellitePlayer.add(satelliteFrontPlayer);
 	//Satellite lens
 	var satelliteLensPlayer = new THREE.Mesh(new THREE.CylinderGeometry(0.005, 0.005, 0.025), new THREE.MeshPhongMaterial());
 	satelliteLensPlayer.material.color.setHex(0x000000);
-	satelliteLensPlayer.position.x = earth.position.x;
-	satelliteLensPlayer.position.y = earth.position.y + 0.7;
-	satelliteLensPlayer.position.z = earth.position.z - 2.4;
+	satelliteLensPlayer.position.set(earth.position.x, earth.position.y + 0.7, earth.position.z - 2.4);
 	satelliteLensPlayer.rotation.x = Math.PI / 2;
 	satellitePlayer.add(satelliteLensPlayer);
 	//Satellite red lights
 	var lightSphereRed = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), new THREE.MeshBasicMaterial());
 	lightSphereRed.material.color.setHex(0xFF0000);
-	lightSphereRed.position.x = earth.position.x - 0.02;
-	lightSphereRed.position.y = earth.position.y + 0.72;
-	lightSphereRed.position.z = earth.position.z - 2.375;
+	lightSphereRed.position.set(earth.position.x - 0.02, earth.position.y + 0.72, earth.position.z - 2.375);
 	beaconPlayer01 = new THREE.SpotLight( 0xFF0000 );
-	beaconPlayer01.position.x = earth.position.x - 0.019;
-	beaconPlayer01.position.y = earth.position.y + 0.719;
-	beaconPlayer01.position.z = earth.position.z - 2.376;
+	beaconPlayer01.position.set(earth.position.x - 0.019, earth.position.y + 0.719, earth.position.z - 2.376);
 	beaconPlayer01.target = satelliteBodyPlayer;
 	satellitePlayer.add(beaconPlayer01);
 	satellitePlayer.add(lightSphereRed);
 	//Satellite green lights
 	var lightSphereGreen = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), new THREE.MeshBasicMaterial());
 	lightSphereGreen.material.color.setHex(0x00FF00);
-	lightSphereGreen.position.x = earth.position.x + 0.02;
-	lightSphereGreen.position.y = earth.position.y + 0.68;
-	lightSphereGreen.position.z = earth.position.z - 2.375;
+	lightSphereGreen.position.set(earth.position.x + 0.02, earth.position.y + 0.68, earth.position.z - 2.375);
 	beaconPlayer02 = new THREE.SpotLight( 0x00FF00 );
-	beaconPlayer02.position.x = earth.position.x + 0.019;
-	beaconPlayer02.position.y = earth.position.y + 0.681;
-	beaconPlayer02.position.z = earth.position.z - 2.376;
+	beaconPlayer02.position.set(earth.position.x + 0.019, earth.position.y + 0.681, earth.position.z - 2.376);
 	beaconPlayer02.target = satelliteBodyPlayer;
 	satellitePlayer.add(beaconPlayer02);
 	satellitePlayer.add(lightSphereGreen);
 	//Add player satellite to scene.
 	scene.add(satellitePlayer);
+}
+function createSatellite(x, y, z, texMap, liteColor)
+{
+	//Satellite component geometries.
+	var satelliteBodyGeometry = new THREE.BoxGeometry(0.05, 0.05, 0.05);
+	var satellitePanelGeometry = new THREE.BoxGeometry(0.005, 0.025, 0.25);
+	var satelliteFrontGeometry = new THREE.BoxGeometry(0.02, 0.02, 0.02);
+	//Satellite component materials.
+	var satelliteBodyMaterial = new THREE.MeshPhongMaterial();
+	var satellitePanelMaterial = new THREE.MeshPhongMaterial({color: 0x2A3B66});
+	var satelliteFrontMaterial = new THREE.MeshPhongMaterial({color: 0xCCCCCC});
+	//Satellite component material maps.
+	switch(texMap)
+	{
+		case 0:
+		{
+			satelliteBodyMaterial.map = THREE.ImageUtils.loadTexture('assets/images/satellite_1.png');
+			break;
+		}
+		case 1:
+		{
+			satelliteBodyMaterial.map = THREE.ImageUtils.loadTexture('assets/images/satellite_2.png');
+			break;
+		}
+		case 2:
+		{
+			satelliteBodyMaterial.map = THREE.ImageUtils.loadTexture('assets/images/satellite_3.png');
+			break;
+		}
+	}
+	//Create satellite
+	var satellite = new THREE.Object3D();
+	//Create satellite components
+	var satelliteBody = new THREE.Mesh( satelliteBodyGeometry.clone(), satelliteBodyMaterial.clone() );
+	var satellitePanel = new THREE.Mesh( satellitePanelGeometry.clone(), satellitePanelMaterial.clone() );
+	var satelliteFront = new THREE.Mesh( satelliteFrontGeometry.clone(), satelliteFrontMaterial.clone() );
+	satelliteBody.position.set(earth.position.x - 1.3, earth.position.y, earth.position.z);
+	satellitePanel.position.set(earth.position.x - 1.3, earth.position.y, earth.position.z);
+	satelliteFront.position.set(earth.position.x - 1.27, earth.position.y, earth.position.z);
+	//Create flashing light.
+	var lightSphere = new THREE.Mesh(new THREE.SphereGeometry(0.008, 32, 32), new THREE.MeshBasicMaterial({color: ((liteColor == 0) ? 0xFF0000 : 0x00FF00)}));
+	lightSphere.position.set(earth.position.x - 1.258, earth.position.y, earth.position.z);
+	beacons.push(lightSphere);
+	//Add components to satellite.
+	satellite.add(satelliteBody);
+	satellite.add(satellitePanel);
+	satellite.add(satelliteFront);
+	satellite.add(lightSphere);
+	//distance satellite from Earth.
+	satellite.position.set(x * Math.random(), y * Math.random(), z * Math.random());
+	//Aim satellite at Earth.
+	satellite.up = earth.up;
+	satellite.lookAt(earth.position);
+	return satellite;
 }
 function registerListeners()
 {

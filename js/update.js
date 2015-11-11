@@ -6,31 +6,64 @@ function render()
 	{
 		updateClock();
 	}
-	if(updateCounter % 70 == 0)
+	if(updateCounter % 60 == 0)
 	{
-		if(beacon01.intensity != 0)
+		if(beaconPlayer02.intensity == 0)
 		{
-			beacon01.intensity = 0;
-			beacon02.intensity = 0.5;
 			beaconPlayer01.intensity = 0;
+			beaconPlayer02.intensity = 1;
 			satellitePlayer.children[5].material.visible = false;
-			beaconPlayer02.intensity = 0.5;
 			satellitePlayer.children[7].material.visible = true;
 		}
 		else
 		{
-			beacon01.intensity = 2;
-			beacon02.intensity = 0;
-			beaconPlayer01.intensity = 0.5;
-			satellitePlayer.children[5].material.visible = true;
+			beaconPlayer01.intensity = 1;
 			beaconPlayer02.intensity = 0;
+			satellitePlayer.children[5].material.visible = true;
 			satellitePlayer.children[7].material.visible = false;
 		}
 	}
+	if(updateCounter % 70 == 0)
+	{
+		for(var i = 0; i < beacons.length; i++)
+		{
+			if(i % 2 == 0)
+			{
+				beacons[i].material.visible = (beacons[i].material.visible == true) ? false : true;
+			}
+			else
+			{
+				beacons[i].material.visible = (beacons[i].material.visible == true) ? false : true;
+			}
+		}
+	}
+	if(updateCounter % 95 == 0)
+	{
+		for(var i = 0; i < beacons.length; i++)
+		{
+			if(i % 3 == 0)
+			{
+				beacons[i].material.visible = (beacons[i].material.visible == true) ? false : true;
+			}
+		}
+	}
+	if(updateCounter % 120 == 0)
+	{
+		for(var i = 0; i < beacons.length; i++)
+		{
+			if( (i % 2 != 0) && (i % 3 != 0) )
+			{
+				beacons[i].material.visible = (beacons[i].material.visible == true) ? false : true;
+			}
+		}
+	}
 	moonOrbit.rotation.y += 0.0001;
-	satellites.rotation.y += 0.00022;
+	satelliteGroupAlpha.rotation.y += 0.00022;
+	satelliteGroupBeta.rotation.y -= 0.0002;
+	satelliteGroupCharlie.rotation.y += 0.00018;
+	satelliteGroupDelta.rotation.y -= 0.0002;
 	earth.rotation.y += 0.0002;
-	//axisOrbit.rotation.y += 0.0005;
+	axisOrbit.rotation.y += 0.0002;
 	clouds.rotation.y += 0.0002;
 
 	for(var viewNum = 0; viewNum < views.length; viewNum++)
@@ -49,10 +82,11 @@ function render()
 	}
 
 	camera = views[cameraCurView].camera;
-	if(updateCounter >= 10000 && backgroundMusic01 != null)
+	if(updateCounter >= 20000 && backgroundMusic01 != null)
 	{
 		backgroundMusic01.pause();
 		backgroundMusic02.play();
+		backgroundMusic02.loop = true;
 		backgroundMusic01 = null;
 	}
 	if(updateCounter >= 40000)

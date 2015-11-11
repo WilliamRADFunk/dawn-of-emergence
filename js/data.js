@@ -13,6 +13,7 @@ var earth;
 var clouds;
 var beacon01, beacon02, beaconPlayer01, beaconPlayer02, beacons = [];
 var satellites, satellitePlayer;
+var satelliteGroupAlpha, satelliteGroupBeta, satelliteGroupCharlie, satelliteGroupDelta;
 var keyboard = new THREEx.KeyboardState();
 var moonOrbit;
 var axisOrbit;

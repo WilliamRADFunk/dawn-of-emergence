@@ -12,38 +12,45 @@ textarea
 }
 #blue-bar
 {
-	
+	display: inline-block;
+	margin-left: 10%;
+	width: 80%;
 }
 #blue-gauge
 {
 	background-color: #0000FF;
 	border-radius: 10px;
 	height: 30%;
-	width: 90%;
+	width: 85%;
 	z-index: 20;
 }
 #red-bar
 {
-	
+	display: inline-block;
+	margin-left: 10%;
+	width: 80%;
+	z-index: 10;
 }
 #red-gauge
 {
 	background-color: #FF0000;
 	border-radius: 10px;
 	height: 30%;
-	width: 90%;
+	width: 85%;
 	z-index: 20;
 }
 #yellow-bar
 {
-	
+	display: inline-block;
+	margin-left: 10%;
+	width: 80%;
 }
 #yellow-gauge
 {
-	background-color: #00FF00;
+	background-color: #FFFF00;
 	border-radius: 10px;
 	height: 30%;
-	width: 90%;
+	width: 85%;
 	z-index: 20;
 }
 #btn-research
@@ -327,6 +334,26 @@ textarea
 {
 	margin-top: 7px;
 	pointer-events: none;
+	width: 100%;
+}
+.left-gauge-cap
+{
+	background-color: #5C5B5C;
+	background-size: 100% 100%;
+	border-radius: 9px 0px 0px 9px;
+	float: left;
+	height: 100%;
+	width: 7.5% !important;
+	z-index: 30;
+}
+.right-gauge-cap
+{
+	background-color: #5C5B5C;
+	background-size: 100% 100%;
+	border-radius: 0px 9px 9px 0px;
+	float: right;
+	width: 7.5% !important;
+	z-index: 30;
 }
 .range-bar
 {
