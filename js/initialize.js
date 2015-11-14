@@ -16,7 +16,7 @@ function init()
 	/*************************************************************************/
 	createMoon();				// Creates and places the moon.
 	/*************************************************************************/
-	createAxes();				// Helper axis for later raycast tests.
+	//createAxes();				// Helper axis for later raycast tests.
 	/*************************************************************************/
 	createClock();				// creates the graphical spheres of the clock.
 	/*************************************************************************/

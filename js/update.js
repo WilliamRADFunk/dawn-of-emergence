@@ -63,7 +63,7 @@ function render()
 	satelliteGroupCharlie.rotation.y += 0.00018;
 	satelliteGroupDelta.rotation.y -= 0.0002;
 	earth.rotation.y += 0.0002;
-	axisOrbit.rotation.y += 0.0002;
+	//axisOrbit.rotation.y += 0.0002;
 	clouds.rotation.y += 0.0002;
 
 	for(var viewNum = 0; viewNum < views.length; viewNum++)
