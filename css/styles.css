@@ -4,6 +4,17 @@ body
 	margin: auto auto;
 	width: 97%;
 }
+iframe
+{
+	background-color: #FFFFFF;
+	display: none;
+	height: 50%;
+	left: 25%;
+	position: absolute;
+	top: 25%;
+	width: 50%;
+	z-index: 1000;
+}
 textarea
 {
 	overflow: hidden;

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <head>
+	<title>Dawn of Emergence</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<!-- Resets all default browser stylings for a clean slate -->
     <link rel="stylesheet" href="css/reset_author_richard_clark.css">
     <!-- Styles specific to the Encryptor pages -->
@@ -36,8 +38,13 @@
 
 <body>
 	<div id="mainview"></div>
+	<iframe id="research-frame" src="research.html"></iframe>
+	<iframe id="upgrades-frame" src="upgrades.html"></iframe>
+	<iframe id="hacking-frame" src="hacking.html"></iframe>
+	<iframe id="settings-frame" src="settings.html"></iframe>
+	<iframe id="map-frame" src="map.html"></iframe>
 	<div id="top-left">
-		<button id="btn-compass" onclick="openMap()"></button>
+		<button id="btn-compass" onclick="showIframe('map-frame')"></button>
 	</div>
 	<div id="top-center">
 		<textarea cols="30" rows="3" id="event-screen"></textarea>
@@ -62,6 +69,7 @@
 			<div id="surveillance-icon"></div>
 		</div>
 	</div>
+	<div id="middle-center"></div>
 	<div id="middle-right">
 		<div id="stat-screen">
 			<h2>SAT TYPE:</h2>
@@ -96,13 +104,13 @@
 		</div>
 	</div>
 	<div id="bottom-center">
-		<button id="btn-research" onclick="openResearch()"></button>
-		<button id="btn-upgrade" onclick="openUpgrades()"></button>
-		<button id="btn-hacking" onclick="openHacking()"></button>
+		<button id="btn-research" onclick="showIframe('research-frame')"></button>
+		<button id="btn-upgrade" onclick="showIframe('upgrades-frame')"></button>
+		<button id="btn-hacking" onclick="showIframe('hacking-frame')"></button>
 		<button id="btn-camera" onclick="openCameras()"></button>
 	</div>
 	<div id="bottom-right">
-		<button id="btn-settings" onclick="openSettings()"></button>
+		<button id="btn-settings" onclick="showIframe('settings-frame')"></button>
 	</div>
 </body>
 <script>window.onload = init;</script>

@@ -3,6 +3,8 @@ function init()
 	WIDTH = window.innerWidth * 0.8;
 	HEIGHT = window.innerHeight * 0.8;
 	/*************************************************************************/
+	keyboard = new THREEx.KeyboardState();
+	/*************************************************************************/
 	loadWorkers();				// Creates webworkers for later use.
 	/*************************************************************************/
 	scene = new THREE.Scene();	// Three.js scene (contains universe).
@@ -303,13 +305,14 @@ function loadCameras()
 function attachViewsToHTML()
 {
 	// Contains the 1st POV, and all HUD elements.
+	var pinPoint = document.getElementById("middle-center");
 	var container = document.getElementById("mainview");
-	document.body.appendChild( container );
+	pinPoint.appendChild( container );
 	container.appendChild( renderer.domElement );
 	// Contains the space clock to upper right corner.
-	var pinPoint = document.getElementById("top-right");
+	var pinPoint2 = document.getElementById("top-right");
 	var container2 = document.getElementById("space-clock");
-	pinPoint.appendChild( container2 );
+	pinPoint2.appendChild( container2 );
 	container2.appendChild( renderer2.domElement );
 }
 function createRenderers()

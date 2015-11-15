@@ -174,26 +174,6 @@ function onSurveillanceBarChange(e)
 		quantity.style.color = "#49E20E";
 	}
 }
-function openMap()
-{
-	console.log("Map");
-}
-function openSettings()
-{
-	console.log("Settings");
-}
-function openResearch()
-{
-	console.log("Research");
-}
-function openUpgrades()
-{
-	console.log("Upgrades");
-}
-function openHacking()
-{
-	console.log("Hacking");
-}
 function openCameras()
 {
 	cameraCurView++;
@@ -356,4 +336,14 @@ function updateEventScreen(text)
 		eventScreen.value += timeStamp + " ==> " + text;
 	}
 	eventScreen.scrollTop = eventScreen.scrollHeight;
+}
+function closeIframe(frame)
+{
+	var iframe = document.getElementById(frame);
+	iframe.style.display = "none";
+}
+function showIframe(frame)
+{
+	var iframe = document.getElementById(frame);
+	iframe.style.display = "block";
 }
