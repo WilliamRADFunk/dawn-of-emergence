@@ -3,18 +3,24 @@
 <head>
 	<title>Hacking Options</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- Resets all default browser stylings for a clean slate -->
+    <link rel="stylesheet" href="css/reset_author_richard_clark.css">
+    <!-- Styles specific to the Encryptor pages -->
+    <link rel="stylesheet" href="css/styles.css">
 	<!-- Global variables -->
 	<script src="js/data.js"></script>
 </head>
 <body>
-	<h1>Targets in hacking range:</h1>
-	<select>
-		<option value="angola">Angola --- <span>$100K</span></option>
-		<option value="congoRepublic">Congo Republic --- <span>$90K</span></option>
-		<option value="crete">Crete --- <span>$65K</span></option>
-		<option value="chad">Chad --- <span>$85K</span></option>
-		<option value="Madagascar">Madagascar --- <span>$70K</span></option>
-	</select>
-	<button onclick="parent.closeIframe('hacking-frame')">X</button>
+	<div class="modal">
+		<h2>Targets in hacking range:</h2>
+		<select>
+			<option value="angola">Angola --- <span>$100K</span></option>
+			<option value="congoRepublic">Congo Republic --- <span>$90K</span></option>
+			<option value="crete">Crete --- <span>$65K</span></option>
+			<option value="chad">Chad --- <span>$85K</span></option>
+			<option value="Madagascar">Madagascar --- <span>$70K</span></option>
+		</select>
+		<button class="btn-close" onclick="parent.closeIframe('hacking-frame')">X</button>
+	</div>
 </body>
 </html>

@@ -6,14 +6,43 @@ body
 }
 iframe
 {
-	background-color: #FFFFFF;
+	background: url("../assets/images/bdg-1.png");
 	display: none;
+	color: #FFFFFF;
 	height: 50%;
 	left: 25%;
 	position: absolute;
 	top: 25%;
 	width: 50%;
 	z-index: 1000;
+}
+#modal-cover
+{
+	background-color: #000000;
+	display: none;
+	left: 0%;
+	min-height: 100%;
+	min-width: 100%;
+	opacity: 0.5;
+	position: absolute;
+	top: 0%;
+	z-index: 990;
+}
+.modal
+{
+	color: #FFFFFF;
+}
+.modal h2
+{
+	margin-top: 10px;
+	text-align: center;
+}
+.btn-close
+{
+	position: absolute;
+	right: 0%;
+	top: 0%;
+	width: 5%;
 }
 textarea
 {

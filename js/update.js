@@ -340,10 +340,14 @@ function updateEventScreen(text)
 function closeIframe(frame)
 {
 	var iframe = document.getElementById(frame);
+	var cover = document.getElementById("modal-cover");
 	iframe.style.display = "none";
+	cover.style.display = "none";
 }
 function showIframe(frame)
 {
 	var iframe = document.getElementById(frame);
+	var cover = document.getElementById("modal-cover");
 	iframe.style.display = "block";
+	cover.style.display = "block";
 }

@@ -3,12 +3,18 @@
 <head>
 	<title>Upgrade Options</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- Resets all default browser stylings for a clean slate -->
+    <link rel="stylesheet" href="css/reset_author_richard_clark.css">
+    <!-- Styles specific to the Encryptor pages -->
+    <link rel="stylesheet" href="css/styles.css">
 	<!-- Global variables -->
 	<script src="js/data.js"></script>
 </head>
 <body>
-	<h1>Available Upgrades</h1>
-	<p>More RAM (100GB) - $100M</p>
-	<button onclick="parent.closeIframe('upgrades-frame')">X</button>
+	<div class="modal">
+		<h2>Available Upgrades</h2>
+		<p>More RAM (100GB) - $100M</p>
+		<button class="btn-close" onclick="parent.closeIframe('upgrades-frame')">X</button>
+	</div>
 </body>
 </html>
