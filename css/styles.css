@@ -16,6 +16,10 @@ iframe
 	width: 50%;
 	z-index: 1000;
 }
+iframe::-webkit-scrollbar
+{
+	display: none;
+}
 #modal-cover
 {
 	background-color: #000000;
@@ -43,6 +47,28 @@ iframe
 	right: 0%;
 	top: 0%;
 	width: 5%;
+}
+#settingsBox
+{
+	margin: 10% auto 0% auto;
+	width: 55%;
+}
+#settingsBox label
+{
+	display: block;
+	margin: 20px auto;
+}
+#settingsBox input[type=range]
+{
+	width: 80%;
+}
+#settingsBox .left
+{
+	float: left;
+}
+#settingsBox .right
+{
+	float: right;
 }
 textarea
 {

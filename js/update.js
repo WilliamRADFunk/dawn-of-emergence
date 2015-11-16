@@ -6,6 +6,12 @@ function render()
 	{
 		updateClock();
 	}
+	if(updateCounter % 60 == 0 && playList[currentSong].ended)
+	{
+		currentSong++;
+		currentSong = (currentSong >= playList.length) ? 0 : currentSong;
+		playList[currentSong].play();
+	}
 	if(updateCounter % 60 == 0)
 	{
 		if(beaconPlayer02.intensity == 0)
@@ -82,13 +88,6 @@ function render()
 	}
 
 	camera = views[cameraCurView].camera;
-	if(updateCounter >= 20000 && backgroundMusic01 != null)
-	{
-		backgroundMusic01.pause();
-		backgroundMusic02.play();
-		backgroundMusic02.loop = true;
-		backgroundMusic01 = null;
-	}
 	if(updateCounter >= 40000)
 	{
 		updateCounter = 1;
@@ -350,4 +349,53 @@ function showIframe(frame)
 	var cover = document.getElementById("modal-cover");
 	iframe.style.display = "block";
 	cover.style.display = "block";
+}
+function toggleMusic()
+{
+	if(muteMusic)
+	{
+		muteMusic = false;
+		playList[currentSong].pause();
+	}
+	else
+	{
+		muteMusic = true;
+		playList[currentSong].play();
+	}
+}
+function toggleSoundFX()
+{
+	alert("Functionality for changing sound FX volume is not yet installed.");
+}
+function skipSong()
+{
+	playList[currentSong].pause();
+	playList[currentSong].currentTime = 0;
+	currentSong++;
+	currentSong = (currentSong >= playList.length) ? 0 : currentSong;
+	playList[currentSong].play();
+}
+function musicVolumeChange(volume)
+{
+	var vol = Number(volume / 100);
+	for(var i = 0; i < playList.length; i++)
+	{
+		playList[i].volume = vol;
+	}
+}
+function soundFxVolumeChange(value)
+{
+	var vol = Number(volume / 100);
+	for(var i = 0; i < soundsList.length; i++)
+	{
+		soundsList[i].volume = vol;
+	}
+}
+function saveGame()
+{
+	alert("Functionality for saving the game is not yet installed.");
+}
+function loadGame()
+{
+	alert("Functionality for loading the game is not yet installed.");
 }

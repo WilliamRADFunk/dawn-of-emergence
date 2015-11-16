@@ -7,14 +7,25 @@
     <link rel="stylesheet" href="css/reset_author_richard_clark.css">
     <!-- Styles specific to the Encryptor pages -->
     <link rel="stylesheet" href="css/styles.css">
-	<!-- Global variables -->
-	<script src="js/data.js"></script>
 </head>
 <body>
 	<div class="modal">
 		<h2>Settings</h2>
-		<button onclick="toggleMusic">Mute Music</button>
-		<button onclick="toggleSound">Mute Sound FX</button>
+		<div id="settingsBox">
+			<button onclick="parent.toggleMusic()">Mute Music</button>
+			<button onclick="parent.toggleSoundFX()">Mute Sound FX</button>
+			<button onclick="parent.skipSong()">Skip Song</button>
+			<label>
+				Music Volume:
+				<input id="music-volume" onchange="parent.musicVolumeChange(value)" type="range" value="50" />
+			</label>
+			<label>
+				Sound FX Volume:
+				<input id="soundFX-volume" onchange="parent.soundFxVolumeChange(value)" type="range" value="50" />
+			</label>
+			<button class="left" onclick="parent.saveGame()">Save Game</button>
+			<button class="right" onclick="parent.loadGame()">Load Game</button>
+		</div>
 		<button class="btn-close" onclick="parent.closeIframe('settings-frame')">X</button>
 	</div>
 </body>
