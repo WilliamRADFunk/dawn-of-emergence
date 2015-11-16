@@ -6,14 +6,16 @@ body
 }
 iframe
 {
-	background: url("../assets/images/bdg-1.png");
+	background-color: transparent;
+	background: url("../assets/images/bdg-9.png") no-repeat;
+	background-size: 100% 100%;
 	display: none;
 	color: #FFFFFF;
-	height: 50%;
-	left: 25%;
+	height: 70%;
+	left: 15%;
 	position: absolute;
-	top: 25%;
-	width: 50%;
+	top: 15%;
+	width: 70%;
 	z-index: 1000;
 }
 iframe::-webkit-scrollbar
@@ -68,7 +70,7 @@ iframe::-webkit-scrollbar
 }
 #settingsBox .right
 {
-	float: right;
+	margin-left: 25%;
 }
 textarea
 {

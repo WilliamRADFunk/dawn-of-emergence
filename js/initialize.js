@@ -207,7 +207,7 @@ function createSatellites(numSats)
 	var lightSphereRed = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), new THREE.MeshBasicMaterial());
 	lightSphereRed.material.color.setHex(0xFF0000);
 	lightSphereRed.position.set(earth.position.x - 0.02, earth.position.y + 0.72, earth.position.z - 2.375);
-	beaconPlayer01 = new THREE.SpotLight( 0xFF0000 );
+	beaconPlayer01 = new THREE.SpotLight( 0xFF0000, 0.5, 0.5 );
 	beaconPlayer01.position.set(earth.position.x - 0.019, earth.position.y + 0.719, earth.position.z - 2.376);
 	beaconPlayer01.target = satelliteBodyPlayer;
 	satellitePlayer.add(beaconPlayer01);
@@ -216,7 +216,7 @@ function createSatellites(numSats)
 	var lightSphereGreen = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), new THREE.MeshBasicMaterial());
 	lightSphereGreen.material.color.setHex(0x00FF00);
 	lightSphereGreen.position.set(earth.position.x + 0.02, earth.position.y + 0.68, earth.position.z - 2.375);
-	beaconPlayer02 = new THREE.SpotLight( 0x00FF00 );
+	beaconPlayer02 = new THREE.SpotLight( 0x00FF00, 0.5, 0.5 );
 	beaconPlayer02.position.set(earth.position.x + 0.019, earth.position.y + 0.681, earth.position.z - 2.376);
 	beaconPlayer02.target = satelliteBodyPlayer;
 	satellitePlayer.add(beaconPlayer02);
