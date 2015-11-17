@@ -4,6 +4,7 @@ body
 	margin: auto auto;
 	width: 97%;
 }
+
 iframe
 {
 	background-color: transparent;
@@ -298,12 +299,43 @@ textarea
 	top: 15%;
 	width: 10%;
 }
-#middle-left input[type=range][orient=vertical]
+#middle-left input[type=range]
 {
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
+    -webkit-appearance: none !important;
+    background-color: transparent;
+    background-image: url("../assets/images/lever-rail.png") !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     height: 80%;
-    width: 100%;
+    margin-left: 30%;
+    width: 40%;
+}
+#power-bar::-webkit-slider-thumb
+{
+	-webkit-appearance: none !important;
+    background-image: url("../assets/images/lever-left.png") !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 38px;
+    height: 32px;
+}
+#visibility-bar::-webkit-slider-thumb
+{
+	-webkit-appearance: none !important;
+    background-image: url("../assets/images/lever-center.png") !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 40px;
+    height: 33px;
+}
+#surveillance-bar::-webkit-slider-thumb
+{
+	-webkit-appearance: none !important;
+    background-image: url("../assets/images/lever-right.png") !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 38px;
+    height: 32px;
 }
 #middle-right
 {
@@ -426,10 +458,10 @@ textarea
 .range-bar
 {
 	float: left;
-    height: 80%;
-    margin-top: 40%;
-    pointer-events: none;
-    width: 30%;
+	height: 80%;
+	margin-top: 40%;
+	pointer-events: none;
+	width: 30%;
 }
 
 .range-quantity
