@@ -189,7 +189,7 @@ function updateClock()
 	var hrs = false;
 	// Increases time by one in-game second.
 	seconds++;
-	if(seconds >= 60)
+	if(seconds >= 30)
 	{
 		seconds = 0;
 		secs = true;
@@ -234,7 +234,7 @@ function updateClockVisual(secs, mins, hrs)
 	// Refreshes seconds, minutes, and hours when they hit zero.
 	if(secs)
 	{
-		for(var i = 0; i < 60; i++)
+		for(var i = 0; i < 30; i++)
 		{
 			secondBars.children[i].material.visible = true;
 		}

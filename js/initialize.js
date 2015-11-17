@@ -353,26 +353,28 @@ function createClock()
 	var timeMaterial = new THREE.MeshBasicMaterial({color: 'white'});
 	for(var i = 0; i < 60; i++)
 	{
-		var secondTick = new THREE.Mesh(timeGeometry, timeMaterial.clone());
-		var x_coord = 5 * Math.cos((i * 2)*(2 * Math.PI/120));
-		var y_coord = 5 * Math.sin((i * 2)*(2 * Math.PI/120));
-		secondTick.position.set(x_coord, y_coord, 0);
-		secondTick.rotation.x += Math.PI / 2;
-		secondBars.add(secondTick);
-
 		var minuteTick = new THREE.Mesh(timeGeometry, timeMaterial.clone());
-		x_coord = 6 * Math.cos((i * 2)*(2 * Math.PI/120));
-		y_coord = 6 * Math.sin((i * 2)*(2 * Math.PI/120));
+		x_coord = 6 * Math.cos( i * (Math.PI / 30) );
+		y_coord = 6 * Math.sin( i * (Math.PI / 30) );
 		minuteTick.material.color.setHex(0xFF00FF);
 		minuteTick.position.set(x_coord, y_coord, 0);
 		minuteTick.rotation.x += Math.PI / 2;
 		minuteBars.add(minuteTick);
 	}
+	for(var i = 0; i < 30; i++)
+	{
+		var secondTick = new THREE.Mesh(timeGeometry, timeMaterial.clone());
+		var x_coord = 5 * Math.cos( i * (Math.PI / 15) );
+		var y_coord = 5 * Math.sin( i * (Math.PI / 15) );
+		secondTick.position.set(x_coord, y_coord, 0);
+		secondTick.rotation.x += Math.PI / 2;
+		secondBars.add(secondTick);
+	}
 	for(var j = 0; j < 24; j++)
 	{
 		var hourTick = new THREE.Mesh(timeGeometry, timeMaterial.clone());
-		x_coord = 7 * Math.cos((j)*(2 * Math.PI/24));
-		y_coord = 7 * Math.sin((j)*(2 * Math.PI/24));
+		x_coord = 7 * Math.cos( j * (Math.PI / 12) );
+		y_coord = 7 * Math.sin( j * (Math.PI / 12) );
 		hourTick.material.color.setHex(0xFFFF00);
 		hourTick.position.set(x_coord, y_coord, 0);
 		hourTick.rotation.x += Math.PI / 2;
