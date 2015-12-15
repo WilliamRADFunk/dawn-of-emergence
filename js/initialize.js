@@ -52,7 +52,7 @@ function loadSounds()
 	{
 		playList[i].volume = 0.5;
 	}
-	playList[0].autoplay = true;
+	//playList[0].autoplay = true;
 }
 // The Universe in all its stary awesomeness.
 function createStars()

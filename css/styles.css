@@ -4,7 +4,6 @@ body
 	margin: auto auto;
 	width: 97%;
 }
-
 iframe
 {
 	background-color: transparent;
@@ -366,8 +365,9 @@ textarea
 	background-size: 100% 100%;
 	height: 10%;
 	left: 15%;
+	padding-left: 10%;
 	top: 90%;
-	width: 70%;
+	width: 60%;
 }
 #bottom-center button,
 #bottom-center button:active
@@ -380,7 +380,7 @@ textarea
 	float: left;
 	min-width: 69px;
 	min-height: 45px;
-	margin: 2% 5% 0% 11%;
+	margin: 2% 5% 0% 5%;
 }
 #bottom-right
 {
@@ -497,4 +497,39 @@ textarea
 	border-radius: 0px 5px 5px 0px;
 	border-style: solid;
 	border-width: 1px 1px 1px 0px;	
+}
+@media (max-width: 991px) {
+	#bottom-center button,
+	#bottom-center button:active
+	{
+		margin: 2% 4% 0% 4%;
+	}
+}
+@media (max-width: 767px) {
+	#bottom-center button,
+	#bottom-center button:active
+	{
+		margin: 2% 2% 0% 2%;
+	}
+}
+@media (max-width: 620px) {
+	#bottom-center button,
+	#bottom-center button:active
+	{
+		margin: 2% 1% 0% 1%;
+	}
+}
+@media (max-width: 560px) {
+	#bottom-center
+	{
+		padding-left: 6%;
+		width: 64%;
+	}
+}
+@media (max-width: 480px) {
+	#bottom-center
+	{
+		padding-left: 0%;
+		width: 70%;
+	}
 }
