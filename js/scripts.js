@@ -135,6 +135,8 @@ var GAME =
 		//AXES.axisOrbit.rotation.y += 0.0002;
 		GAME.LANDSCAPE.clouds.rotation.y += 0.0002;
 
+		GAME.HUD.addMoney(1);
+
 		for(var viewNum = 0; viewNum < GAME.POV.views.length; viewNum++)
 		{
 			var view = GAME.POV.views[viewNum];
@@ -275,6 +277,46 @@ GAME.IFRAMES =
 /****************************************************************************************/
 GAME.HUD =
 {
+	addMoney: function(amount)
+	{
+		var bank = document.getElementById("current-bank");
+		bank.innerHTML = Number(bank.innerHTML) + amount;
+	},
+	removeMoney: function(amount)
+	{
+		var bank = document.getElementById("current-bank");
+		bank.innerHTML = Number(bank.innerHTML) - amount;
+	},
+	changeResearch: function(research)
+	{
+		var lab = document.getElementById("current-research");
+		lab.innerHTML = research;
+	},
+	changeUpgrade: function(upgrade)
+	{
+		var machineShop = document.getElementById("current-upgrade");
+		machineShop.innerHTML = upgrade;
+	},
+	changeCamoTask: function(task)
+	{
+		var job = document.getElementById("camo-task");
+		job.innerHTML = task;
+	},
+	changeEnemyAmount: function(enemies)
+	{
+		var radar = document.getElementById("enemy-amount");
+		radar.innerHTML = enemies;
+	},
+	changeEnemyAmount: function(enemies)
+	{
+		var radar = document.getElementById("enemy-amount");
+		radar.innerHTML = enemies;
+	},
+	changeCPU: function(speed)
+	{
+		var chip = document.getElementById("cpu-amount");
+		chip.innerHTML = speed;
+	},
 	updateEventScreen: function(text)
 	{
 		var eventScreen = document.getElementById("event-screen");
@@ -424,8 +466,8 @@ GAME.LISTENERS =
 		GAME.WIDTH = window.innerWidth * 0.8;
 		GAME.HEIGHT = window.innerHeight * 0.8;
 		GAME.renderer.setSize( GAME.WIDTH, GAME.HEIGHT );
-		GAME.camera.aspect = GAME.WIDTH / GAME.HEIGHT;
-		GAME.camera.updateProjectionMatrix();
+		GAME.POV.camera.aspect = GAME.WIDTH / GAME.HEIGHT;
+		GAME.POV.camera.updateProjectionMatrix();
 
 		GAME.TIME.clockWIDTH = document.getElementById("space-clock").offsetWidth - 3;
 		GAME.TIME.clockHEIGHT = document.getElementById("space-clock").offsetHeight - 2;
