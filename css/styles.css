@@ -74,6 +74,7 @@ iframe::-webkit-scrollbar
 }
 textarea
 {
+	font-size: 12px;
 	overflow: hidden;
 	pointer-events: none;
 	resize: none;
@@ -463,7 +464,6 @@ textarea
 	pointer-events: none;
 	width: 30%;
 }
-
 .range-quantity
 {
 	background-color: #000000;
@@ -498,38 +498,92 @@ textarea
 	border-style: solid;
 	border-width: 1px 1px 1px 0px;	
 }
+/*--------------------------------- Up to 1080px width size ---------------------*/
+@media (max-width: 1080px) {
+	#stat-screen h2
+	{
+		font-size: 11px;
+	}
+}
+/*--------------------------------- Up to 991px width size ---------------------*/
 @media (max-width: 991px) {
 	#bottom-center button,
 	#bottom-center button:active
 	{
 		margin: 2% 4% 0% 4%;
 	}
+	#stat-screen h2
+	{
+		font-size: 10px;
+	}
 }
+/*--------------------------------- Up to 860px width size ---------------------*/
+@media (max-width: 860px) {
+	#stat-screen h2
+	{
+		font-size: 9px;
+	}
+	#stat-screen p
+	{
+		font-size: 8px;
+	}
+	textarea
+	{
+		font-size: 11px;
+	}
+/*--------------------------------- Up to 767px width size ---------------------*/
 @media (max-width: 767px) {
 	#bottom-center button,
 	#bottom-center button:active
 	{
 		margin: 2% 2% 0% 2%;
 	}
+	#stat-screen h2
+	{
+		font-size: 8px;
+	}
+	#stat-screen p
+	{
+		font-size: 7px;
+	}
+	textarea
+	{
+		font-size: 10px;
+	}
 }
+/*--------------------------------- Up to 620px width size ---------------------*/
 @media (max-width: 620px) {
 	#bottom-center button,
 	#bottom-center button:active
 	{
 		margin: 2% 1% 0% 1%;
 	}
+	.range-quantity
+	{
+		font-size: 13px;
+	}
 }
+/*--------------------------------- Up to 560px width size ---------------------*/
 @media (max-width: 560px) {
 	#bottom-center
 	{
 		padding-left: 6%;
 		width: 64%;
 	}
+	.range-quantity
+	{
+		font-size: 11px;
+	}
 }
+/*--------------------------------- Up to 480px width size ---------------------*/
 @media (max-width: 480px) {
 	#bottom-center
 	{
 		padding-left: 0%;
 		width: 70%;
+	}
+	.range-quantity
+	{
+		font-size: 10px;
 	}
 }
