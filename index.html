@@ -51,7 +51,7 @@
 	<iframe id="settings-frame" src="settings.html"></iframe>
 	<iframe id="map-frame" src="map.html"></iframe>
 	<div id="top-left">
-		<button id="btn-compass" onclick="showIframe('map-frame')"></button>
+		<button id="btn-compass" onclick="GAME.IFRAMES.showIframe('map-frame')"></button>
 	</div>
 	<div id="top-center">
 		<textarea cols="30" rows="3" id="event-screen"></textarea>
@@ -111,16 +111,16 @@
 		</div>
 	</div>
 	<div id="bottom-center">
-		<button id="btn-research" onclick="showIframe('research-frame')"></button>
-		<button id="btn-upgrade" onclick="showIframe('upgrades-frame')"></button>
-		<button id="btn-hacking" onclick="showIframe('hacking-frame')"></button>
-		<button id="btn-camera" onclick="openCameras()"></button>
+		<button id="btn-research" onclick="GAME.IFRAMES.showIframe('research-frame')"></button>
+		<button id="btn-upgrade" onclick="GAME.IFRAMES.showIframe('upgrades-frame')"></button>
+		<button id="btn-hacking" onclick="GAME.IFRAMES.showIframe('hacking-frame')"></button>
+		<button id="btn-camera" onclick="GAME.POV.openCameras()"></button>
 	</div>
 	<div id="bottom-right">
-		<button id="btn-settings" onclick="showIframe('settings-frame')"></button>
+		<button id="btn-settings" onclick="GAME.IFRAMES.showIframe('settings-frame')"></button>
 	</div>
 </body>
-<script>window.onload = init;</script>
+<script>window.onload = GAME.init;</script>
 </html>
 
 <!--
