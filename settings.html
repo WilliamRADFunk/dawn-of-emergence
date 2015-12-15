@@ -12,19 +12,19 @@
 	<div class="modal">
 		<h2>Settings</h2>
 		<div id="settingsBox">
-			<button onclick="parent.GAME.Audio.toggleMusic()">Mute Music</button>
-			<button onclick="parent.GAME.Audio.toggleSoundFX()">Mute Sound FX</button>
-			<button onclick="parent.GAME.Audio.skipSong()">Skip Song</button>
+			<button onclick="parent.GAME.AUDIO.toggleMusic()">Mute Music</button>
+			<button onclick="parent.GAME.AUDIO.toggleSoundFX()">Mute Sound FX</button>
+			<button onclick="parent.GAME.AUDIO.skipSong()">Skip Song</button>
 			<label>
 				Music Volume:
-				<input id="music-volume" onchange="parent.GAME.Audio.musicVolumeChange(value)" type="range" value="50" />
+				<input id="music-volume" onchange="parent.GAME.AUDIO.musicVolumeChange(value)" type="range" value="50" />
 			</label>
 			<label>
 				Sound FX Volume:
-				<input id="soundFX-volume" onchange="parent.GAME.Audio.soundFxVolumeChange(value)" type="range" value="50" />
+				<input id="soundFX-volume" onchange="parent.GAME.AUDIO.soundFxVolumeChange(value)" type="range" value="50" />
 			</label>
-			<button class="left" onclick="parent.saveGame()">Save Game</button>
-			<button class="right" onclick="parent.loadGame()">Load Game</button>
+			<button class="left" onclick="parent.GAME.STORAGE.saveGame()">Save Game</button>
+			<button class="right" onclick="parent.GAME.STORAGE.loadGame()">Load Game</button>
 		</div>
 		<button class="btn-close" onclick="parent.GAME.IFRAMES.closeIframe('settings-frame')">X</button>
 	</div>

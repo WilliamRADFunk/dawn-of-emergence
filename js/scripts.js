@@ -174,7 +174,7 @@ GAME.AUDIO =
 		GAME.AUDIO.playList.push(new Audio("assets/audio/Beepthovens5th.mp3"));
 		GAME.AUDIO.playList.push(new Audio("assets/audio/mahler_05.mp3"));
 		for(var i = 0; i < GAME.AUDIO.playList.length; i++) GAME.AUDIO.playList[i].volume = 0.5;
-		//GAME.AUDIO.playList[0].autoplay = true;
+		GAME.AUDIO.playList[0].autoplay = true;
 	},
 	musicVolumeChange: function(volume)
 	{
