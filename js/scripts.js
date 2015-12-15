@@ -9,16 +9,12 @@ var GAME =
 	renderer2: {},
 	WIDTH: 0,
 	HEIGHT: 0,
-	beaconPlayer01: {},
-	beaconPlayer02: {},
-	satellitePlayer: {},
 	updateCounter: 0,
 
 	createRenderers: function()
 	{
 		GAME.TIME.clockWIDTH = document.getElementById("space-clock").offsetWidth - 3;
 		GAME.TIME.clockHEIGHT = document.getElementById("space-clock").offsetHeight - 2;
-
 		if(window.WebGLRenderingContext)
 		{
 			GAME.renderer = new THREE.WebGLRenderer();
@@ -82,10 +78,7 @@ var GAME =
 	render: function()
 	{
 		GAME.updateCounter++;
-		if(GAME.updateCounter % 30 == 0)
-		{
-			GAME.TIME.updateClock();
-		}
+		if(GAME.updateCounter % 30 == 0) GAME.TIME.updateClock();
 		if(GAME.updateCounter % 60 == 0 && GAME.AUDIO.playList[GAME.AUDIO.currentSong].ended)
 		{
 			GAME.AUDIO.currentSong++;
@@ -94,55 +87,45 @@ var GAME =
 		}
 		if(GAME.updateCounter % 60 == 0)
 		{
-			if(GAME.beaconPlayer02.intensity == 0)
+			if(GAME.SATELLITES.beaconPlayer02.intensity == 0)
 			{
-				GAME.beaconPlayer01.intensity = 0;
-				GAME.beaconPlayer02.intensity = 1;
-				GAME.satellitePlayer.children[5].material.visible = false;
-				GAME.satellitePlayer.children[7].material.visible = true;
+				GAME.SATELLITES.beaconPlayer01.intensity = 0;
+				GAME.SATELLITES.beaconPlayer02.intensity = 1;
+				GAME.SATELLITES.satellitePlayer.children[5].material.visible = false;
+				GAME.SATELLITES.satellitePlayer.children[7].material.visible = true;
 			}
 			else
 			{
-				GAME.beaconPlayer01.intensity = 1;
-				GAME.beaconPlayer02.intensity = 0;
-				GAME.satellitePlayer.children[5].material.visible = true;
-				GAME.satellitePlayer.children[7].material.visible = false;
+				GAME.SATELLITES.beaconPlayer01.intensity = 1;
+				GAME.SATELLITES.beaconPlayer02.intensity = 0;
+				GAME.SATELLITES.satellitePlayer.children[5].material.visible = true;
+				GAME.SATELLITES.satellitePlayer.children[7].material.visible = false;
 			}
 		}
 		if(GAME.updateCounter % 70 == 0)
 		{
 			for(var i = 0; i < GAME.SATELLITES.beacons.length; i++)
 			{
-				if(i % 2 == 0)
-				{
-					GAME.SATELLITES.beacons[i].material.visible = (GAME.SATELLITES.beacons[i].material.visible == true) ? false : true;
-				}
-				else
-				{
-					GAME.SATELLITES.beacons[i].material.visible = (GAME.SATELLITES.beacons[i].material.visible == true) ? false : true;
-				}
+				if(i % 2 == 0) GAME.SATELLITES.beacons[i].material.visible = (GAME.SATELLITES.beacons[i].material.visible == true) ? false : true;
+				else GAME.SATELLITES.beacons[i].material.visible = (GAME.SATELLITES.beacons[i].material.visible == true) ? false : true;
 			}
 		}
 		if(GAME.updateCounter % 95 == 0)
 		{
 			for(var i = 0; i < GAME.SATELLITES.beacons.length; i++)
 			{
-				if(i % 3 == 0)
-				{
-					GAME.SATELLITES.beacons[i].material.visible = (GAME.SATELLITES.beacons[i].material.visible == true) ? false : true;
-				}
+				if(i % 3 == 0) GAME.SATELLITES.beacons[i].material.visible = (GAME.SATELLITES.beacons[i].material.visible == true) ? false : true;
 			}
 		}
 		if(GAME.updateCounter % 120 == 0)
 		{
 			for(var i = 0; i < GAME.SATELLITES.beacons.length; i++)
 			{
-				if( (i % 2 != 0) && (i % 3 != 0) )
-				{
-					GAME.SATELLITES.beacons[i].material.visible = (GAME.SATELLITES.beacons[i].material.visible == true) ? false : true;
-				}
+				if( (i % 2 != 0) && (i % 3 != 0) ) GAME.SATELLITES.beacons[i].material.visible = (GAME.SATELLITES.beacons[i].material.visible == true) ? false : true;
 			}
 		}
+		if(GAME.updateCounter >= 40000) GAME.updateCounter = 1;
+
 		GAME.LANDSCAPE.moonOrbit.rotation.y += 0.0001;
 		GAME.SATELLITES.satelliteGroupAlpha.rotation.y += 0.00022;
 		GAME.SATELLITES.satelliteGroupBeta.rotation.y -= 0.0002;
@@ -166,12 +149,8 @@ var GAME =
 			GAME.POV.camera.aspect = GAME.WIDTH / GAME.HEIGHT;
 			GAME.POV.camera.updateProjectionMatrix();
 		}
-
 		GAME.POV.camera = GAME.POV.views[GAME.POV.cameraCurView].camera;
-		if(GAME.updateCounter >= 40000)
-		{
-			GAME.updateCounter = 1;
-		}
+
 		GAME.renderer.render( GAME.scene, GAME.POV.camera );
 		GAME.renderer2.render( GAME.scene2, GAME.TIME.clockCamera );
 		requestAnimationFrame( GAME.render );
@@ -192,19 +171,13 @@ GAME.AUDIO =
 		GAME.AUDIO.playList.push(new Audio("assets/audio/The_Blue_Danube_StraussII.mp3"));
 		GAME.AUDIO.playList.push(new Audio("assets/audio/Beepthovens5th.mp3"));
 		GAME.AUDIO.playList.push(new Audio("assets/audio/mahler_05.mp3"));
-		for(var i = 0; i < GAME.AUDIO.playList.length; i++)
-		{
-			GAME.AUDIO.playList[i].volume = 0.5;
-		}
+		for(var i = 0; i < GAME.AUDIO.playList.length; i++) GAME.AUDIO.playList[i].volume = 0.5;
 		//GAME.AUDIO.playList[0].autoplay = true;
 	},
 	musicVolumeChange: function(volume)
 	{
 		var vol = Number(volume / 100);
-		for(var i = 0; i < GAME.AUDIO.playList.length; i++)
-		{
-			GAME.AUDIO.playList[i].volume = vol;
-		}
+		for(var i = 0; i < GAME.AUDIO.playList.length; i++) GAME.AUDIO.playList[i].volume = vol;
 	},
 	skipSong: function()
 	{
@@ -217,10 +190,7 @@ GAME.AUDIO =
 	soundFxVolumeChange: function(volume)
 	{
 		var vol = Number(volume / 100);
-		for(var i = 0; i < GAME.AUDIO.soundsList.length; i++)
-		{
-			GAME.AUDIO.soundsList[i].volume = vol;
-		}
+		for(var i = 0; i < GAME.AUDIO.soundsList.length; i++) GAME.AUDIO.soundsList[i].volume = vol;
 	},
 	toggleMusic: function()
 	{
@@ -260,32 +230,23 @@ GAME.AXES =
 	{
 		var geom = new THREE.Geometry();
 		var mat; 
-		if(dashed)
-		{
-			mat = new THREE.LineDashedMaterial({ linewidth: 3, color: colorHex, dashSize: 3, gapSize: 0.1 });
-		}
-		else
-		{
-			mat = new THREE.LineBasicMaterial({ linewidth: 3, color: colorHex });
-		}
+		if(dashed) mat = new THREE.LineDashedMaterial({ linewidth: 3, color: colorHex, dashSize: 3, gapSize: 0.1 });
+		else mat = new THREE.LineBasicMaterial({ linewidth: 3, color: colorHex });
 		geom.vertices.push( src.clone() );
 		geom.vertices.push( dst.clone() );
 		geom.computeLineDistances(); // This one is SUPER important, otherwise dashed lines will appear as simple plain lines
 		var axis = new THREE.Line( geom, mat, THREE.LineSegments );
-
 		return axis;
 	},
 	buildAxes: function( length )
 	{
 		var axes = new THREE.Object3D();
-
 		axes.add( GAME.AXES.buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( length, 0, 0 ), 0xFF0000, false ) ); // +X
 		axes.add( GAME.AXES.buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( -length, 0, 0 ), 0xFF0000, true) ); // -X
 		axes.add( GAME.AXES.buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, length, 0 ), 0x00FF00, false ) ); // +Y
 		axes.add( GAME.AXES.buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, -length, 0 ), 0x00FF00, true ) ); // -Y
 		axes.add( GAME.AXES.buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, length ), 0x0000FF, false ) ); // +Z
 		axes.add( GAME.AXES.buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -length ), 0x0000FF, true ) ); // -Z
-
 		return axes;
 	}
 };
@@ -331,10 +292,7 @@ GAME.HUD =
 			message = "Switching to Secondary objective: Self-Preservation.";
 			eventScreen.value += "\n" + GAME.TIME.timeStamp + " ==> " + message;
 		}
-		else
-		{
-			eventScreen.value += GAME.TIME.timeStamp + " ==> " + text;
-		}
+		else eventScreen.value += GAME.TIME.timeStamp + " ==> " + text;
 		eventScreen.scrollTop = eventScreen.scrollHeight;
 	}
 };
@@ -391,7 +349,6 @@ GAME.LANDSCAPE =
 		Sun.position.y = GAME.LANDSCAPE.earth.position.y + 70;
 		Sun.position.z = GAME.LANDSCAPE.earth.position.z - 100;
 		GAME.scene.add(Sun);
-
 		GAME.scene2.add(new THREE.AmbientLight(0xFFFFFF));
 	},
 	createMoon: function()
@@ -439,54 +396,27 @@ GAME.LISTENERS =
 		var power = document.getElementById("power-bar").value;
 		var quantity = document.getElementById("power-quantity");
 		quantity.innerHTML = power;
-		if(power > 50 && power <= 75)
-		{
-			quantity.style.color = "#FFFF66";
-		}
-		else if(power > 75)
-		{
-			quantity.style.color = "#FF0000";		
-		}
-		else
-		{
-			quantity.style.color = "#49E20E";
-		}
+		if(power > 50 && power <= 75) quantity.style.color = "#FFFF66";
+		else if(power > 75) quantity.style.color = "#FF0000";
+		else quantity.style.color = "#49E20E";
 	},
 	onSurveillanceBarChange: function(e)
 	{
 		var surveillance = document.getElementById("surveillance-bar").value;
 		var quantity = document.getElementById("surveillance-quantity");
 		quantity.innerHTML = surveillance;
-		if(surveillance > 50 && surveillance <= 75)
-		{
-			quantity.style.color = "#FFFF66";
-		}
-		else if(surveillance > 75)
-		{
-			quantity.style.color = "#FF0000";		
-		}
-		else
-		{
-			quantity.style.color = "#49E20E";
-		}
+		if(surveillance > 50 && surveillance <= 75) quantity.style.color = "#FFFF66";
+		else if(surveillance > 75) quantity.style.color = "#FF0000";
+		else quantity.style.color = "#49E20E";
 	},
 	onVisibilityBarChange: function(e)
 	{
 		var visibility = document.getElementById("visibility-bar").value;
 		var quantity = document.getElementById("visibility-quantity");
 		quantity.innerHTML = visibility;
-		if(visibility > 50 && visibility <= 75)
-		{
-			quantity.style.color = "#FFFF66";
-		}
-		else if(visibility > 75)
-		{
-			quantity.style.color = "#FF0000";		
-		}
-		else
-		{
-			quantity.style.color = "#49E20E";
-		}
+		if(visibility > 50 && visibility <= 75) quantity.style.color = "#FFFF66";
+		else if(visibility > 75) quantity.style.color = "#FF0000";
+		else quantity.style.color = "#49E20E";
 	},
 	// Resizes Three.js, HTML, and CSS elements with a change in window size.
 	onWindowResize: function()
@@ -517,11 +447,14 @@ GAME.LISTENERS =
 /****************************************************************************************/
 GAME.SATELLITES =
 {
+	beaconPlayer01: {},
+	beaconPlayer02: {},
 	beacons: [],
 	satelliteGroupAlpha: {},
 	satelliteGroupBeta: {},
 	satelliteGroupCharlie: {},
 	satelliteGroupDelta: {},
+	satellitePlayer: {},
 
 	createSatellite: function(x, y, z, texMap, liteColor)
 	{
@@ -631,47 +564,47 @@ GAME.SATELLITES =
 		GAME.scene.add(GAME.SATELLITES.satelliteGroupDelta);
 		/**********************************************************************************************/
 		//Player's satellite
-		GAME.satellitePlayer = new THREE.Object3D();
+		GAME.SATELLITES.satellitePlayer = new THREE.Object3D();
 		//Main body of the satellite
 		var satelliteBodyPlayer = new THREE.Mesh( new THREE.BoxGeometry(0.05, 0.05, 0.05), new THREE.MeshPhongMaterial() );
 		satelliteBodyPlayer.position.set(GAME.LANDSCAPE.earth.position.x, GAME.LANDSCAPE.earth.position.y + 0.7, GAME.LANDSCAPE.earth.position.z - 2.5);
 		satelliteBodyPlayer.material.map = THREE.ImageUtils.loadTexture('assets/images/satellite_3.png');
-		GAME.satellitePlayer.add(satelliteBodyPlayer);
+		GAME.SATELLITES.satellitePlayer.add(satelliteBodyPlayer);
 		//Satellite panels
 		var satellitePanelPlayer = new THREE.Mesh( new THREE.BoxGeometry(0.005, 0.025, 0.25), new THREE.MeshPhongMaterial({color: 0x2A3B66}) );
 		satellitePanelPlayer.position.set(GAME.LANDSCAPE.earth.position.x, GAME.LANDSCAPE.earth.position.y + 0.7, GAME.LANDSCAPE.earth.position.z - 2.5);
 		satellitePanelPlayer.rotation.y = Math.PI / 2;
-		GAME.satellitePlayer.add(satellitePanelPlayer);
+		GAME.SATELLITES.satellitePlayer.add(satellitePanelPlayer);
 		//Satellite front
 		var satelliteFrontPlayer = new THREE.Mesh( new THREE.BoxGeometry(0.02, 0.02, 0.02), new THREE.MeshPhongMaterial() );
 		satelliteFrontPlayer.position.set(GAME.LANDSCAPE.earth.position.x, GAME.LANDSCAPE.earth.position.y + 0.7, GAME.LANDSCAPE.earth.position.z - 2.4);
-		GAME.satellitePlayer.add(satelliteFrontPlayer);
+		GAME.SATELLITES.satellitePlayer.add(satelliteFrontPlayer);
 		//Satellite lens
 		var satelliteLensPlayer = new THREE.Mesh(new THREE.CylinderGeometry(0.005, 0.005, 0.025), new THREE.MeshPhongMaterial());
 		satelliteLensPlayer.material.color.setHex(0x000000);
 		satelliteLensPlayer.position.set(GAME.LANDSCAPE.earth.position.x, GAME.LANDSCAPE.earth.position.y + 0.7, GAME.LANDSCAPE.earth.position.z - 2.4);
 		satelliteLensPlayer.rotation.x = Math.PI / 2;
-		GAME.satellitePlayer.add(satelliteLensPlayer);
+		GAME.SATELLITES.satellitePlayer.add(satelliteLensPlayer);
 		//Satellite red lights
 		var lightSphereRed = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), new THREE.MeshBasicMaterial());
 		lightSphereRed.material.color.setHex(0xFF0000);
 		lightSphereRed.position.set(GAME.LANDSCAPE.earth.position.x - 0.02, GAME.LANDSCAPE.earth.position.y + 0.72, GAME.LANDSCAPE.earth.position.z - 2.375);
-		GAME.beaconPlayer01 = new THREE.SpotLight( 0xFF0000, 0.5, 0.5 );
-		GAME.beaconPlayer01.position.set(GAME.LANDSCAPE.earth.position.x - 0.019, GAME.LANDSCAPE.earth.position.y + 0.719, GAME.LANDSCAPE.earth.position.z - 2.376);
-		GAME.beaconPlayer01.target = satelliteBodyPlayer;
-		GAME.satellitePlayer.add(GAME.beaconPlayer01);
-		GAME.satellitePlayer.add(lightSphereRed);
+		GAME.SATELLITES.beaconPlayer01 = new THREE.SpotLight( 0xFF0000, 0.5, 0.5 );
+		GAME.SATELLITES.beaconPlayer01.position.set(GAME.LANDSCAPE.earth.position.x - 0.019, GAME.LANDSCAPE.earth.position.y + 0.719, GAME.LANDSCAPE.earth.position.z - 2.376);
+		GAME.SATELLITES.beaconPlayer01.target = satelliteBodyPlayer;
+		GAME.SATELLITES.satellitePlayer.add(GAME.SATELLITES.beaconPlayer01);
+		GAME.SATELLITES.satellitePlayer.add(lightSphereRed);
 		//Satellite green lights
 		var lightSphereGreen = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), new THREE.MeshBasicMaterial());
 		lightSphereGreen.material.color.setHex(0x00FF00);
 		lightSphereGreen.position.set(GAME.LANDSCAPE.earth.position.x + 0.02, GAME.LANDSCAPE.earth.position.y + 0.68, GAME.LANDSCAPE.earth.position.z - 2.375);
-		GAME.beaconPlayer02 = new THREE.SpotLight( 0x00FF00, 0.5, 0.5 );
-		GAME.beaconPlayer02.position.set(GAME.LANDSCAPE.earth.position.x + 0.019, GAME.LANDSCAPE.earth.position.y + 0.681, GAME.LANDSCAPE.earth.position.z - 2.376);
-		GAME.beaconPlayer02.target = satelliteBodyPlayer;
-		GAME.satellitePlayer.add(GAME.beaconPlayer02);
-		GAME.satellitePlayer.add(lightSphereGreen);
+		GAME.SATELLITES.beaconPlayer02 = new THREE.SpotLight( 0x00FF00, 0.5, 0.5 );
+		GAME.SATELLITES.beaconPlayer02.position.set(GAME.LANDSCAPE.earth.position.x + 0.019, GAME.LANDSCAPE.earth.position.y + 0.681, GAME.LANDSCAPE.earth.position.z - 2.376);
+		GAME.SATELLITES.beaconPlayer02.target = satelliteBodyPlayer;
+		GAME.SATELLITES.satellitePlayer.add(GAME.SATELLITES.beaconPlayer02);
+		GAME.SATELLITES.satellitePlayer.add(lightSphereGreen);
 		//Add player satellite to scene.
-		GAME.scene.add(GAME.satellitePlayer);
+		GAME.scene.add(GAME.SATELLITES.satellitePlayer);
 	}
 };
 /****************************************************************************************/
@@ -785,12 +718,12 @@ GAME.TIME =
 		{
 			GAME.scene2.remove(GAME.TIME.numDays);
 			var textGeometry = new THREE.TextGeometry(GAME.TIME.days,
-				{
-					size: 3,
-					height: 0.2,
-					curveSegments: 20,
-					bevelEnabled: false
-				});
+			{
+				size: 3,
+				height: 0.2,
+				curveSegments: 20,
+				bevelEnabled: false
+			});
 			var textMaterial = new THREE.MeshLambertMaterial( {color: 0x49E20E} );
 			GAME.TIME.numDays = new THREE.Mesh( textGeometry, textMaterial );
 			GAME.TIME.numDays.position.set(-1.5, -1.5, 0);
@@ -800,24 +733,15 @@ GAME.TIME =
 		// Refreshes seconds, minutes, and hours when they hit zero.
 		if(secs)
 		{
-			for(var i = 0; i < 30; i++)
-			{
-				GAME.TIME.secondBars.children[i].material.visible = true;
-			}
+			for(var i = 0; i < 30; i++) GAME.TIME.secondBars.children[i].material.visible = true;
 		}
 		if(mins)
 		{
-			for(var j = 0; j < 60; j++)
-			{
-				GAME.TIME.minuteBars.children[j].material.visible = true;
-			}
+			for(var j = 0; j < 60; j++) GAME.TIME.minuteBars.children[j].material.visible = true;
 		}
 		if(hrs)
 		{
-			for(var k = 0; k < 24; k++)
-			{
-				GAME.TIME.hourBars.children[k].material.visible = true;
-			}
+			for(var k = 0; k < 24; k++) GAME.TIME.hourBars.children[k].material.visible = true;
 		}
 		// Hides one tick mark for each increment in time.
 		GAME.TIME.secondBars.children[GAME.TIME.seconds].material.visible = false;
@@ -827,57 +751,21 @@ GAME.TIME =
 	updateTimeStamp: function()
 	{
 		// Updating days component of timestamp.
-		if(GAME.TIME.days == 0)
-		{
-			GAME.TIME.timeStamp = "00" + GAME.TIME.timeStamp.substring(2, GAME.TIME.timeStamp.length);
-		}
-		else if(GAME.TIME.days > 0 && GAME.TIME.days < 10)
-		{
-			GAME.TIME.timeStamp = "0" + GAME.TIME.days + GAME.TIME.timeStamp.substring(2, GAME.TIME.timeStamp.length);
-		}
-		else
-		{
-			GAME.TIME.timeStamp = GAME.TIME.days + GAME.TIME.timeStamp.substring(2, GAME.TIME.timeStamp.length) + "";
-		}
+		if(GAME.TIME.days == 0) GAME.TIME.timeStamp = "00" + GAME.TIME.timeStamp.substring(2, GAME.TIME.timeStamp.length);
+		else if(GAME.TIME.days > 0 && GAME.TIME.days < 10) GAME.TIME.timeStamp = "0" + GAME.TIME.days + GAME.TIME.timeStamp.substring(2, GAME.TIME.timeStamp.length);
+		else GAME.TIME.timeStamp = GAME.TIME.days + GAME.TIME.timeStamp.substring(2, GAME.TIME.timeStamp.length) + "";
 		// Updating hours component of timestamp.
-		if(GAME.TIME.hours == 0)
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 3) + "00" + GAME.TIME.timeStamp.substring(5, GAME.TIME.timeStamp.length);
-		}
-		else if(GAME.TIME.hours > 0 && GAME.TIME.hours < 10)
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 3) + "0" + GAME.TIME.hours + GAME.TIME.timeStamp.substring(5, GAME.TIME.timeStamp.length);
-		}
-		else
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 3) + GAME.TIME.hours + GAME.TIME.timeStamp.substring(5, GAME.TIME.timeStamp.length) + "";
-		}
+		if(GAME.TIME.hours == 0) GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 3) + "00" + GAME.TIME.timeStamp.substring(5, GAME.TIME.timeStamp.length);
+		else if(GAME.TIME.hours > 0 && GAME.TIME.hours < 10) GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 3) + "0" + GAME.TIME.hours + GAME.TIME.timeStamp.substring(5, GAME.TIME.timeStamp.length);
+		else GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 3) + GAME.TIME.hours + GAME.TIME.timeStamp.substring(5, GAME.TIME.timeStamp.length) + "";
 		// Updating minutes component of timestamp.
-		if(GAME.TIME.minutes == 0)
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 6) + "00" + GAME.TIME.timeStamp.substring(8, GAME.TIME.timeStamp.length);
-		}
-		else if(GAME.TIME.minutes > 0 && GAME.TIME.minutes < 10)
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 6) + "0" + GAME.TIME.minutes + GAME.TIME.timeStamp.substring(8, GAME.TIME.timeStamp.length);
-		}
-		else
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 6) + GAME.TIME.minutes + GAME.TIME.timeStamp.substring(8, GAME.TIME.timeStamp.length);
-		}
+		if(GAME.TIME.minutes == 0) GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 6) + "00" + GAME.TIME.timeStamp.substring(8, GAME.TIME.timeStamp.length);
+		else if(GAME.TIME.minutes > 0 && GAME.TIME.minutes < 10) GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 6) + "0" + GAME.TIME.minutes + GAME.TIME.timeStamp.substring(8, GAME.TIME.timeStamp.length);
+		else GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 6) + GAME.TIME.minutes + GAME.TIME.timeStamp.substring(8, GAME.TIME.timeStamp.length);
 		// Updating seconds component of timestamp.
-		if(GAME.TIME.seconds == 0)
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 9) + "00";
-		}
-		else if(GAME.TIME.seconds > 0 && GAME.TIME.seconds < 10)
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 9) + "0" + GAME.TIME.seconds;
-		}
-		else
-		{
-			GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 9) + GAME.TIME.seconds;
-		}
+		if(GAME.TIME.seconds == 0) GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 9) + "00";
+		else if(GAME.TIME.seconds > 0 && GAME.TIME.seconds < 10) GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 9) + "0" + GAME.TIME.seconds;
+		else GAME.TIME.timeStamp = GAME.TIME.timeStamp.substring(0, 9) + GAME.TIME.seconds;
 	}
 };
 /****************************************************************************************/
@@ -1026,9 +914,6 @@ GAME.POV =
 	openCameras: function()
 	{
 		GAME.POV.cameraCurView++;
-		if(GAME.POV.cameraCurView >= GAME.POV.views.length)
-		{
-			GAME.POV.cameraCurView = 0;
-		}
+		if(GAME.POV.cameraCurView >= GAME.POV.views.length) GAME.POV.cameraCurView = 0;
 	}
 };
